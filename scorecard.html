@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="assets/slabline-mark.png">
+<title>Quote Speed Scorecard</title>
+<meta name="description" content="7 questions, 60 seconds. Find out how many concrete jobs your quoting process is costing you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#ECEDE9;--bg-2:#E3E5E0;--card:#FBFBF9;--ink:#16181B;--ink-2:#4A4F55;--ink-3:#7C8187;--line:#D2D5CF;
+  --accent:#E0662A;--accent-2:#F4AE3D;--accent-ink:#FFFFFF;--good:#1F8A4C;--bad:#C2410C;--speck:rgba(22,24,27,.06);
+  --shadow:0 18px 40px -22px rgba(22,24,27,.35);
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;--body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121315;--bg-2:#17191C;--card:#1C1F22;--ink:#EEEFEC;--ink-2:#B4B8BC;--ink-3:#868B91;--line:#2C3034;--accent:#F0773A;--accent-2:#F6B84F;--accent-ink:#141414;--good:#3DBA73;--bad:#F08A5D;--speck:rgba(255,255,255,.035);--shadow:0 18px 40px -22px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121315;--bg-2:#17191C;--card:#1C1F22;--ink:#EEEFEC;--ink-2:#B4B8BC;--ink-3:#868B91;--line:#2C3034;--accent:#F0773A;--accent-2:#F6B84F;--accent-ink:#141414;--good:#3DBA73;--bad:#F08A5D;--speck:rgba(255,255,255,.035);--shadow:0 18px 40px -22px rgba(0,0,0,.8);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;min-height:100vh;
+  background-image:radial-gradient(var(--speck) 1px,transparent 1.6px),radial-gradient(var(--speck) 1px,transparent 1.4px);background-size:23px 23px,37px 37px;background-position:0 0,11px 17px;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%;display:block}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1160px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font:800 20px/1 var(--display);font-stretch:115%;letter-spacing:-.02em}
+.brand img{width:32px;height:32px;border-radius:8px}
+.back{font-size:14.5px;color:var(--ink-2);text-decoration:none}
+h1,h2,h3{font-family:var(--display);font-stretch:112%;letter-spacing:-.02em;line-height:1.04;margin:0;text-wrap:balance}
+h1{font-size:clamp(34px,5.4vw,58px);font-weight:800}
+h2{font-size:clamp(26px,3.6vw,38px);font-weight:800}
+p{margin:0}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.lede{color:var(--ink-2);font-size:clamp(17px,1.6vw,19px);max-width:58ch}
+.hl{color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 16px/1 var(--body);padding:16px 22px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .2s, box-shadow .2s, opacity .2s}
+.btn:focus-visible,.opt:focus-visible,input:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 10px 24px -12px var(--accent)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+
+.intro{padding-block:clamp(28px,6vw,72px) 24px;display:grid;gap:18px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;font:500 13px/1 var(--mono);color:var(--ink-3);letter-spacing:.04em}
+.meta span::before{content:"◆ ";color:var(--accent);font-size:9px;vertical-align:2px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:56px}
+.bar{height:6px;background:var(--bg-2)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.qwrap{position:relative;padding:clamp(22px,4vw,40px)}
+.qcount{font:500 12px/1 var(--mono);color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase}
+.q{display:grid;gap:18px;animation:in .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes in{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.q h2{font-size:clamp(22px,3vw,30px)}
+.q .why{font-size:14.5px;color:var(--ink-3)}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;width:100%;font:500 16px/1.35 var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:15px 16px;cursor:pointer;transition:border-color .2s, background .2s, transform .15s}
+.opt:hover{border-color:var(--ink-3);transform:translateX(3px)}
+.opt .k{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;border:1px solid var(--line);font:600 12px/1 var(--mono);color:var(--ink-3);background:var(--card)}
+.opt.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--bg))}
+.opt.sel .k{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.num{display:grid;gap:10px}
+.num label{font:500 14px/1.3 var(--body);color:var(--ink-2)}
+.num .row{display:flex;align-items:center;gap:14px}
+.num input[type=range]{flex:1;accent-color:var(--accent);min-width:0}
+.num output{flex:none;min-width:92px;text-align:right;font:600 20px/1 var(--mono);font-variant-numeric:tabular-nums}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+.nav .btn{padding:13px 18px;font-size:15px}
+
+/* results */
+.res{padding:clamp(22px,4vw,40px);display:grid;gap:28px;animation:in .5s}
+.res-top{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center}
+@media (max-width:620px){.res-top{grid-template-columns:1fr}}
+.gauge{position:relative;width:220px;max-width:100%;aspect-ratio:1}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .t{fill:none;stroke:var(--bg-2);stroke-width:14}
+.gauge .f{fill:none;stroke:url(#g);stroke-width:14;stroke-linecap:round;stroke-dasharray:578;stroke-dashoffset:578;transition:stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1)}
+.gauge .c{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.gauge b{font:800 64px/1 var(--display);font-stretch:112%}
+.gauge span{font:500 11.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+.grade{display:inline-block;font:600 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:7px 10px;border-radius:99px;border:1px solid currentColor}
+.money{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:620px){.money{grid-template-columns:1fr}}
+.m{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:16px}
+.m small{display:block;font:500 11.5px/1.3 var(--mono);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+.m b{display:block;font:800 30px/1.1 var(--display);font-stretch:110%;margin-top:8px;font-variant-numeric:tabular-nums}
+.m.hot b{color:var(--accent)}
+.assume{font-size:13.5px;color:var(--ink-3);line-height:1.5}
+.leaks{display:grid;gap:12px}
+.leak{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--bg)}
+.leak .i{font:700 13px/1 var(--mono);color:var(--accent);padding-top:4px}
+.leak h3{font-size:18px;font-stretch:104%;letter-spacing:-.01em;line-height:1.2}
+.leak p{color:var(--ink-2);font-size:15px;margin-top:6px}
+.leak .fix{display:block;margin-top:8px;font:500 13px/1.45 var(--mono);color:var(--ink)}
+.cta{display:grid;gap:14px;background:var(--ink);color:var(--bg);border-radius:20px;padding:clamp(20px,3.5vw,32px)}
+.cta h3{font-size:24px;color:var(--bg)}
+.cta p{color:color-mix(in srgb,var(--bg) 72%,transparent)}
+.cta .row{display:flex;flex-wrap:wrap;gap:10px}
+.cta .btn-ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 30%,transparent)}
+.restart{background:none;border:0;color:var(--ink-3);font:500 14px var(--body);cursor:pointer;text-decoration:underline;justify-self:start;padding:0}
+/* lead form */
+.gate{padding:clamp(22px,4vw,40px);display:grid;gap:22px;animation:in .5s}
+.gate-top{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.blur-score{font:800 72px/1 var(--display);font-stretch:112%;color:var(--accent)}
+.locked{position:relative;border:1px dashed var(--line);border-radius:16px;padding:16px;display:grid;gap:8px;color:var(--ink-3);font-size:14.5px}
+.locked b{color:var(--ink);font-weight:600}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.fgrid{grid-template-columns:1fr}}
+.fld{display:grid;gap:6px;min-width:0}
+.fld.wide{grid-column:1/-1}
+.fld span{font:500 13.5px/1.2 var(--body);color:var(--ink-2)}
+.fld i{color:var(--accent);font-style:normal}
+.fld em,.more em{font-style:normal;color:var(--ink-3);font-weight:400}
+.fld input{font:500 16px/1.2 var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;width:100%;min-width:0}
+.fld input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.fld input:user-invalid{border-color:var(--bad)}
+[hidden]{display:none!important}
+.more{margin-top:4px}
+.more summary{cursor:pointer;font:500 14px/1.3 var(--body);color:var(--ink-2);padding:6px 0;list-style:none}
+.more summary::before{content:"+ ";color:var(--accent);font-weight:700}
+.more[open] summary::before{content:"– "}
+.more .fgrid{margin-top:10px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fine{font-size:13px;color:var(--ink-3)}
+.ferr{color:var(--bad);font-size:14px;min-height:1em}
+footer{padding-block:24px 40px;color:var(--ink-3);font-size:13.5px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/slabline-mark.png" alt="">Slabline</a>
+  <a class="back" href="index.html">← Back to site</a>
+</div></header>
+
+<main class="wrap">
+  <section class="intro" id="intro">
+    <p class="eyebrow">Quote Speed Scorecard · Free</p>
+    <h1>How many jobs is your quoting <span class="hl">quietly costing you?</span></h1>
+    <p class="lede">7 questions about how you quote driveways, patios and slabs today. You get a score out of 100, your 3 biggest leaks with a fix for each, and a rough dollar figure built only from your own numbers.</p>
+    <div class="meta"><span>60 seconds</span><span>Free report</span><span>Built for concrete</span></div>
+  </section>
+
+  <section class="card" aria-live="polite">
+    <div class="bar"><i id="prog"></i></div>
+    <div id="stage"></div>
+  </section>
+</main>
+
+<footer>Slabline · Quoting systems for concrete contractors. We use your details only to send your report and follow up. No spam, ever.</footer>
+
+<script src="config.js"></script>
+<script src="lead.js"></script>
+<script>
+(function(){
+  const CAL=(window.SLABLINE_CONFIG||{}).calendly||'https://calendly.com/glintvex/concrete';
+  let unlocked=false;
+  // Each choice question: options carry points (0–max) and a leak key when weak.
+  const Q=[
+    {id:'speed',t:'After a homeowner calls, how long until they have your price?',why:'They usually call 3–4 companies. The first clear price tends to get the next conversation.',max:25,
+      o:[['Same day',25],['1–2 days',15],['3–5 days',6],['A week or more',0]]},
+    {id:'measure',t:'How do you get measurements for a quote?',why:'Every site visit before a price is a half-day and a delay.',max:10,
+      o:[['Satellite / aerial first, visit before the pour',10],['Homeowner sends measurements or photos',6],['Always drive out first',2]]},
+    {id:'look',t:'What does the homeowner actually receive?',why:'They\'re handing someone $8–15k. They pick the company that looks real.',max:15,
+      o:[['Branded, itemized estimate they can approve online',15],['A PDF or Word doc',9],['A text or a number over the phone',2]]},
+    {id:'options',t:'Do you show options (e.g. broom vs. stamped, 4" vs. 6")?',why:'Options turn "too expensive" into "which one do you want?"',max:10,
+      o:[['Yes, good / better / best on every quote',10],['Sometimes, if they ask',5],['No, one price',0]]},
+    {id:'follow',t:'When a homeowner goes quiet after the quote, what happens?',why:'Most lost jobs aren\'t a "no". They\'re a quote nobody followed up on.',max:20,
+      o:[['Follow-ups go out automatically on a schedule',20],['I call or text when I remember',8],['Nothing, I wait for them',0]]},
+    {id:'deposit',t:'How do you collect the deposit?',why:'A signed quote without a deposit can still walk.',max:10,
+      o:[['Online, right when they approve',10],['Check or cash at a visit',4],['No deposit / sort it out later',0]]},
+    {id:'num',t:'Last one: your numbers.',why:'Used only to estimate what slow quotes and missed follow-ups could be worth.',type:'num'}
+  ];
+  const LEAKS={
+    speed:{h:'Your price arrives after the other guys\'',p:'Homeowners compare whoever answers first. Days of delay hand the conversation to someone else.',f:'Fix: price from satellite at your desk and send the estimate the same afternoon.'},
+    measure:{h:'You drive out before you can price',p:'A site trip per lead caps how many quotes you can send in a week.',f:'Fix: measure from aerial imagery for the first price; visit once they\'re serious.'},
+    look:{h:'Your quote doesn\'t look like a $10k company',p:'A texted number reads as risky next to a branded, itemized estimate.',f:'Fix: send an estimate page with your logo, line items, terms and an Approve button.'},
+    options:{h:'One price, one shot',p:'With a single number, the only question the homeowner can ask is "can you do it cheaper?"',f:'Fix: show 2–3 options (finish, thickness, sealer) so they pick, not haggle.'},
+    follow:{h:'Quotes go quiet and stay quiet',p:'Busy homeowners forget. Whoever checks in politely usually gets the job.',f:'Fix: a 3-touch follow-up (day 2, day 5, day 10) that goes out under your name automatically.'},
+    deposit:{h:'Approved jobs can still walk',p:'Without a deposit, "yes" isn\'t a commitment and your calendar isn\'t safe.',f:'Fix: collect the deposit online the moment they approve.'}
+  };
+  const A={}; let i=-1;
+  const stage=document.getElementById('stage'), prog=document.getElementById('prog');
+  const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+  if(!A.quotes){A.quotes=20;A.value=9000;A.close=30;}
+
+  function render(){
+    prog.style.width=(i<0?0:Math.min(100,(i/(Q.length))*100))+'%';
+    if(i<0) return start();
+    if(i>=Q.length) return unlocked?results():gate();
+    const q=Q[i];
+    let body='';
+    if(q.type==='num'){
+      body=`<div class="num"><label for="r1">Quotes you send per month</label><div class="row"><input id="r1" type="range" min="2" max="80" step="1" value="${A.quotes}"><output id="o1">${A.quotes}</output></div></div>
+      <div class="num"><label for="r2">Average job value</label><div class="row"><input id="r2" type="range" min="2000" max="40000" step="500" value="${A.value}"><output id="o2">${money(A.value)}</output></div></div>
+      <div class="num"><label for="r3">Roughly what % of your quotes turn into jobs today</label><div class="row"><input id="r3" type="range" min="5" max="80" step="1" value="${A.close}"><output id="o3">${A.close}%</output></div></div>`;
+    } else {
+      body=`<div class="opts" role="radiogroup" aria-label="${q.t}">`+q.o.map((o,k)=>`<button class="opt${A[q.id]===k?' sel':''}" role="radio" aria-checked="${A[q.id]===k}" data-k="${k}"><span class="k">${String.fromCharCode(65+k)}</span>${o[0]}</button>`).join('')+`</div>`;
+    }
+    stage.innerHTML=`<div class="qwrap"><div class="q" key="${i}"><span class="qcount">Question ${i+1} of ${Q.length}</span><h2>${q.t}</h2><p class="why">${q.why}</p>${body}</div>
+      <div class="nav"><button class="btn btn-ghost" id="prev">← Back</button><button class="btn btn-primary" id="next" ${q.type!=='num'&&A[q.id]===undefined?'disabled':''}>${i===Q.length-1?'See my score':'Next'} →</button></div></div>`;
+    document.getElementById('prev').onclick=()=>{i--;render();};
+    document.getElementById('next').onclick=()=>{i++;render();};
+    if(q.type==='num'){
+      [['r1','o1','quotes',v=>v],['r2','o2','value',money],['r3','o3','close',v=>v+'%']].forEach(([r,o,key,f])=>{const el=document.getElementById(r);el.oninput=()=>{A[key]=+el.value;document.getElementById(o).textContent=f(+el.value);};});
+    } else {
+      stage.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{A[q.id]=+b.dataset.k;stage.querySelectorAll('.opt').forEach(x=>{x.classList.toggle('sel',x===b);x.setAttribute('aria-checked',x===b);});document.getElementById('next').disabled=false;setTimeout(()=>{i++;render();},260);});
+    }
+    const first=stage.querySelector('.opt.sel,.opt,input'); if(first&&i>0) first.focus({preventScroll:true});
+  }
+
+  function start(){
+    stage.innerHTML=`<div class="qwrap"><div class="q"><span class="qcount">Ready?</span><h2>Answer for how you quote today, not how you'd like to.</h2><p class="why">Honest answers give you a useful fix list. There are no wrong answers.</p></div><div class="nav"><span></span><button class="btn btn-primary" id="go">Start the scorecard →</button></div></div>`;
+    document.getElementById('go').onclick=()=>{i=0;render();};
+  }
+
+  function calcScore(){ let s=0; Q.forEach(q=>{ if(q.type!=='num') s+=q.o[A[q.id]][1]; }); return s; }
+
+  function gate(){
+    prog.style.width='100%';
+    const score=calcScore();
+    stage.innerHTML=`<form class="gate" id="lead" novalidate>
+      <div class="gate-top"><span class="blur-score">${score}</span><div><p class="eyebrow">Your score is ready</p><h2 style="margin-top:8px">Where should we send your full report?</h2></div></div>
+      <div class="locked"><b>Your report includes:</b><span>◆ Your top 3 leaks, with a fix for each</span><span>◆ Jobs and dollars you could be winning back each month</span><span>◆ A copy by email, so you can share it with your team</span></div>
+      ${LEAD_FIELDS_HTML('g')}
+      <p class="ferr" id="ferr" role="alert"></p>
+      <button class="btn btn-primary" type="submit" id="send">Show my full report →</button>
+      <p class="fine">We use this only to send your report and follow up about your quoting. No spam. Unsubscribe any time.</p>
+    </form>`;
+    const f=document.getElementById('lead');
+    f.addEventListener('submit',e=>{
+      e.preventDefault();
+      const err=document.getElementById('ferr');
+      if(!f.checkValidity()){ err.textContent='Please fill in the required fields.'; const bad=f.querySelector(':invalid'); bad&&bad.focus(); return; }
+      const d=readLead(f); if(!d) return;
+      const btn=document.getElementById('send'); btn.disabled=true; btn.textContent='Preparing your report…';
+      const ans={}; Q.forEach(q=>{ if(q.type!=='num') ans['Q: '+q.t]=q.o[A[q.id]][0]; });
+      const payload=Object.assign({}, d, {'Score':score+'/100','Quotes per month':A.quotes,'Avg job value':'$'+A.value,'Close rate':A.close+'%'}, ans);
+      sendLead(payload,'Scorecard lead: '+(d.company||d.name)+' scored '+score)
+        .catch(er=>console.warn('Lead send failed:',er.message))
+        .finally(()=>{ unlocked=true; results(); });
+    });
+    const first=f.querySelector('input'); first&&first.focus({preventScroll:true});
+  }
+
+  function results(){
+    prog.style.width='100%';
+    let score=0; const weak=[];
+    Q.forEach(q=>{ if(q.type==='num')return; const pts=q.o[A[q.id]][1]; score+=pts; weak.push({id:q.id,gap:(q.max-pts)/q.max*q.max}); });
+    weak.sort((a,b)=>b.gap-a.gap);
+    const top=weak.filter(w=>w.gap>0).slice(0,3);
+    // Estimate: clearly labeled assumptions. Faster quotes + follow-up could recover a share of quotes that don't close.
+    const lost=A.quotes*(1-A.close/100);
+    const speedGap=(25-Q[0].o[A.speed][1])/25, followGap=(20-Q[4].o[A.follow][1])/20;
+    const recoverRate=0.10*speedGap+0.10*followGap; // up to 20% of non-closing quotes
+    const jobs=lost*recoverRate, monthly=jobs*A.value;
+    const grade=score>=80?['Fast lane','var(--good)']:score>=55?['Leaking a few jobs','var(--accent-2)']:['Leaking jobs every month','var(--bad)'];
+    stage.innerHTML=`<div class="res">
+      <div class="res-top">
+        <div class="gauge"><svg viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs><circle class="t" cx="100" cy="100" r="92"/><circle class="f" id="gf" cx="100" cy="100" r="92"/></svg><div class="c"><b id="sc">0</b><span>out of 100</span></div></div>
+        <div style="display:grid;gap:12px"><span class="grade" style="color:${grade[1]};justify-self:start">${grade[0]}</span><h2>Your Quote Speed Score</h2><p class="lede" style="font-size:16.5px">${score>=80?'You\'re ahead of most crews. The fixes below are fine-tuning.':'The good news: these leaks are process problems, not concrete problems. They\'re fixable in a week.'}</p></div>
+      </div>
+      <div>
+        <div class="money">
+          <div class="m"><small>Quotes that don't close / mo</small><b>${Math.round(lost)}</b></div>
+          <div class="m hot"><small>Jobs you might win back / mo</small><b>${jobs<1&&jobs>0?jobs.toFixed(1):Math.round(jobs)}</b></div>
+          <div class="m hot"><small>Rough value / mo</small><b>${money(monthly)}</b></div>
+        </div>
+        <p class="assume" style="margin-top:10px">How we got this: ${A.quotes} quotes × ${100-A.close}% that don't close today. We assume a faster price could win back up to 10% of those and steady follow-up up to another 10%, scaled by your answers. It's an estimate from your inputs, not a promise.</p>
+      </div>
+      ${top.length?`<div class="leaks"><p class="eyebrow">Your ${top.length===1?'biggest leak':'top '+top.length+' leaks'}</p>${top.map((w,k)=>`<div class="leak"><span class="i">0${k+1}</span><div><h3>${LEAKS[w.id].h}</h3><p>${LEAKS[w.id].p}</p><span class="fix">${LEAKS[w.id].f}</span></div></div>`).join('')}</div>`:''}
+      <div class="cta"><h3>Want these fixed under your own logo?</h3><p>On a 20-minute call I'll show you the quoting system set up with your company name, and we'll go through your score together. If it isn't a fit, I'll tell you.</p><div class="row"><a class="btn btn-primary" href="${CAL}" target="_blank" rel="noopener">Book my 20-min call →</a><a class="btn btn-ghost" href="index.html#how">See how it works</a></div></div>
+      <button class="restart" id="again">Retake the scorecard</button>
+    </div>`;
+    requestAnimationFrame(()=>{ document.getElementById('gf').style.strokeDashoffset=578*(1-score/100); const t0=performance.now(); const el=document.getElementById('sc'); const f=n=>{const k=Math.min(1,(n-t0)/1400); el.textContent=Math.round(score*(1-Math.pow(1-k,3))); if(k<1)requestAnimationFrame(f);}; requestAnimationFrame(f); });
+    document.getElementById('again').onclick=()=>{Object.keys(A).forEach(k=>{if(!['quotes','value','close'].includes(k))delete A[k];});i=-1;render();};
+    stage.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  render();
+})();
+</script>
+</body>
+</html>

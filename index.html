@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="assets/slabline-mark.png">
+<title>Slabline</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Same-day, branded quotes for concrete contractors. We set up quoting, approvals, deposits and follow-ups under your company name.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: the page is poured in slabs — full-width bands separated by saw-cut joints; content sits on a 12-col 1160px grid. */
+:root{
+  --bg:#ECEDE9;          /* cured concrete */
+  --bg-2:#E3E5E0;
+  --card:#FBFBF9;
+  --ink:#16181B;
+  --ink-2:#4A4F55;
+  --ink-3:#7C8187;
+  --line:#D2D5CF;
+  --accent:#E0662A;      /* Slabline orange */
+  --accent-2:#F4AE3D;    /* safety amber */
+  --accent-ink:#FFFFFF;
+  --good:#1F8A4C;
+  --speck:rgba(22,24,27,.06);
+  --shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 18px 40px -22px rgba(22,24,27,.35);
+  --display:"Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121315;--bg-2:#17191C;--card:#1C1F22;--ink:#EEEFEC;--ink-2:#B4B8BC;--ink-3:#868B91;--line:#2C3034;
+  --accent:#F0773A;--accent-2:#F6B84F;--accent-ink:#141414;--good:#3DBA73;--speck:rgba(255,255,255,.035);
+  --shadow:0 18px 40px -22px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121315;--bg-2:#17191C;--card:#1C1F22;--ink:#EEEFEC;--ink-2:#B4B8BC;--ink-3:#868B91;--line:#2C3034;
+  --accent:#F0773A;--accent-2:#F6B84F;--accent-ink:#141414;--good:#3DBA73;--speck:rgba(255,255,255,.035);
+  --shadow:0 18px 40px -22px rgba(0,0,0,.8);color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{position:relative;padding-block:clamp(64px,9vw,120px)}
+/* aggregate speckle */
+.speckle{background-image:
+  radial-gradient(var(--speck) 1px,transparent 1.6px),
+  radial-gradient(var(--speck) 1px,transparent 1.4px);
+  background-size:23px 23px,37px 37px;background-position:0 0,11px 17px}
+.joint{height:0;border-top:1px solid var(--line);position:relative}
+.joint::after{content:attr(data-label);position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:-9px;font:500 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);background:var(--bg);padding:0 8px}
+
+h1,h2,h3{font-family:var(--display);font-stretch:112%;letter-spacing:-.02em;line-height:1.02;margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6.4vw,78px);font-weight:800}
+h2{font-size:clamp(32px,4.4vw,54px);font-weight:800}
+h3{font-size:22px;font-weight:700;font-stretch:105%;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);max-width:60ch}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.mono{font-family:var(--mono)}
+.hl{color:var(--accent)}
+.u{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--accent-2) 55%,transparent) 62%);padding:0 .08em}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 16px/1 var(--body);padding:16px 22px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .2s ease, box-shadow .2s ease, background .2s ease}
+.btn:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 10px 24px -12px var(--accent)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px var(--accent)}
+.btn-ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{transform:translateY(-2px)}
+.btn .arr{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,currentColor 16%,transparent);transition:transform .2s}
+.btn:hover .arr{transform:translateX(3px)}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:24px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 20px/1 var(--display);font-stretch:115%;letter-spacing:-.02em}
+.brand img{width:32px;height:32px;border-radius:8px}
+.nav-links{display:flex;gap:26px;margin-left:auto;font-size:15px;color:var(--ink-2)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--ink)}
+.nav .btn{padding:11px 16px;font-size:14.5px}
+@media (max-width:860px){.nav-links{display:none}.nav .btn{margin-left:auto}}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0}
+
+/* hero */
+.hero{padding-block:clamp(40px,6vw,80px) clamp(56px,7vw,96px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}}
+.pill{display:inline-flex;align-items:center;gap:8px;font:500 13px/1 var(--body);padding:9px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px color-mix(in srgb,var(--good) 18%,transparent)}
+.hero h1{margin-top:22px}
+.hero .lede{margin-top:22px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.proofline{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:26px;font-size:14px;color:var(--ink-3)}
+.proofline b{color:var(--ink);font-weight:600}
+.reveal-word{display:inline-block;opacity:1;transform:none}
+.js .reveal-word{opacity:0;transform:translateY(.4em);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* hero machine */
+.machine{position:relative;min-height:540px}
+.sheet{position:absolute;inset:0 70px 40px 0;background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.sheet-top{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);font:500 12px/1 var(--mono);color:var(--ink-3);letter-spacing:.04em}
+.sheet-top .dots{display:flex;gap:6px}.sheet-top .dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.sheet-top .live{margin-left:auto;color:var(--good)}
+.sat{position:relative;height:210px;background:#5b6450;overflow:hidden}
+.sat canvas{position:absolute;inset:0;width:100%;height:100%}
+.sat svg{position:absolute;inset:0;width:100%;height:100%}
+.sat .poly{fill:color-mix(in srgb,var(--accent-2) 30%,transparent);stroke:var(--accent-2);stroke-width:2.5;stroke-dasharray:900;stroke-dashoffset:900}
+.sat .vtx{fill:#fff;stroke:var(--accent);stroke-width:2;opacity:0}
+.sat .area{position:absolute;left:14px;bottom:12px;font:600 13px/1 var(--mono);color:#fff;background:rgba(10,12,14,.72);padding:8px 10px;border-radius:8px;letter-spacing:.02em}
+.sat .area b{color:var(--accent-2);font-weight:600}
+.lines{padding:14px 18px;display:grid;gap:2px;font-size:14.5px}
+.li{display:grid;grid-template-columns:1fr auto;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);opacity:.0;transform:translateY(6px)}
+.li span:first-child{color:var(--ink-2)}
+.li small{display:block;font:400 11.5px/1.3 var(--mono);color:var(--ink-3)}
+.li .amt{font:600 14px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:auto 18px 16px;padding-top:12px;border-top:2px solid var(--ink);font-family:var(--display);font-weight:800;font-size:26px;font-stretch:110%}
+.total small{font:500 12px/1 var(--mono);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+.phone{position:absolute;right:0;bottom:0;width:210px;aspect-ratio:9/17.6;max-width:100%;border-radius:32px;background:#0E0F11;padding:9px;box-shadow:0 30px 60px -25px rgba(0,0,0,.55);transform:translateY(40px) rotate(4deg);opacity:0}
+.phone .scr{position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;background:#fff}
+.phone img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .6s}
+.phone .appr{opacity:0}
+.toast{position:absolute;left:-30px;bottom:96px;display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;box-shadow:var(--shadow);font-size:13.5px;opacity:0;transform:translateY(10px)}
+.toast .ok{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--good);color:#fff;font-weight:700}
+.toast b{display:block;font-size:14px}
+.sent-tag{position:absolute;right:150px;top:-14px;font:600 12px/1 var(--mono);background:var(--ink);color:var(--bg);padding:9px 12px;border-radius:999px;opacity:0;letter-spacing:.03em}
+.demo-note{position:absolute;left:0;bottom:4px;font:500 11px/1 var(--mono);color:var(--ink-3);letter-spacing:.06em}
+@media (max-width:520px){.machine{min-height:500px}.sheet{inset:0 0 120px 0}.phone{width:150px;right:6px}.toast{left:auto;right:120px;bottom:40px}.sent-tag{right:20px}}
+
+/* marquee */
+.marquee{overflow:hidden;border-block:1px solid var(--line);background:var(--bg-2)}
+.marquee-track{display:flex;gap:48px;width:max-content;padding-block:18px;animation:slide 38s linear infinite;font:500 14px/1 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase}
+.marquee-track span::before{content:"◆";color:var(--accent);margin-right:48px;font-size:9px;vertical-align:2px}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* race */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
+@media (max-width:900px){.split{grid-template-columns:1fr}}
+.race{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;box-shadow:var(--shadow)}
+.race-row{display:grid;gap:8px;margin-bottom:18px}
+.race-row:last-child{margin-bottom:0}
+.race-row .lbl{display:flex;justify-content:space-between;font-size:14.5px;color:var(--ink-2)}
+.race-row .lbl b{color:var(--ink);font-weight:600}
+.track{height:14px;border-radius:99px;background:var(--bg-2);overflow:hidden}
+.bar{height:100%;width:0;border-radius:99px;background:var(--ink-3);transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+.bar.win{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.race-foot{margin-top:20px;padding-top:16px;border-top:1px dashed var(--line);font-size:14px;color:var(--ink-3)}
+.facts{display:grid;gap:16px;margin-top:28px}
+.fact{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start}
+.fact .k{font:700 14px/1 var(--mono);color:var(--accent);padding-top:5px}
+
+/* steps (sticky) */
+.steps{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,5vw,64px);margin-top:48px}
+@media (max-width:900px){.steps{grid-template-columns:1fr}}
+.step-list{display:grid;gap:14px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:20px;border-radius:var(--r);border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
+.step .n{font:600 13px/1 var(--mono);color:var(--ink-3);width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1px solid var(--line);background:var(--card)}
+.step p{color:var(--ink-2);margin-top:6px;font-size:15.5px}
+.step .tag{display:inline-block;margin-top:10px;font:500 11.5px/1 var(--mono);color:var(--ink-3);letter-spacing:.06em}
+.step.on{background:var(--card);border-color:var(--line);box-shadow:var(--shadow)}
+.step.on .n{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.stage{position:sticky;top:96px;align-self:start}
+.screen{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.screen-bar{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.screen-bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.screen-bar span{margin-left:10px;font:500 11.5px/1 var(--mono);color:var(--ink-3)}
+.shots{position:relative;aspect-ratio:1366/860;max-width:100%}
+.shots img,.shots .shot-phone{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left;opacity:0;transition:opacity .5s ease, transform .6s ease;transform:scale(1.02)}
+.shots .on{opacity:1;transform:none}
+.shot-phone{display:grid;place-items:center;background:linear-gradient(135deg,var(--bg-2),var(--bg))}
+.shot-phone img{position:static;opacity:1;transform:none;width:auto;height:92%;border-radius:22px;border:8px solid #0E0F11;object-fit:cover}
+.caption{margin-top:12px;font:500 12px/1.4 var(--mono);color:var(--ink-3)}
+
+/* compare */
+.compare{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:var(--card);user-select:none;aspect-ratio:16/11;max-width:100%}
+.cmp-side{position:absolute;inset:0;display:grid;place-items:center;padding:28px}
+.cmp-text{background:var(--bg-2)}
+.sms{width:min(330px,100%);display:grid;gap:10px}
+.sms .who{font:500 12px/1 var(--mono);color:var(--ink-3);text-align:center;margin-bottom:6px}
+.bubble{background:#E5E5EA;color:#111;border-radius:18px 18px 18px 4px;padding:12px 15px;font-size:15px;line-height:1.4;max-width:88%}
+.cmp-brand{clip-path:inset(0 0 0 50%);background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 10%,var(--card)),var(--card))}
+.cmp-brand img{height:96%;width:auto;border-radius:20px;border:8px solid #0E0F11;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)}
+.cmp-handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--accent);transform:translateX(-1px)}
+.cmp-handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:20px;box-shadow:0 8px 20px -6px var(--accent)}
+.cmp-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.cmp-labels{display:flex;justify-content:space-between;margin-top:12px;font:500 12px/1 var(--mono);color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase}
+.ticks{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:12px}
+.ticks li{display:grid;grid-template-columns:22px 1fr;gap:12px;color:var(--ink-2)}
+.ticks li::before{content:"";width:18px;height:18px;margin-top:4px;border-radius:6px;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.ticks b{color:var(--ink);font-weight:600}
+
+/* offer */
+.offer{background:var(--ink);color:var(--bg);border-radius:28px;overflow:hidden;position:relative}
+.offer::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1.5px);background-size:22px 22px;pointer-events:none}
+.offer-in{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);padding:clamp(28px,5vw,64px)}
+@media (max-width:940px){.offer-in{grid-template-columns:1fr}}
+.offer .eyebrow{color:var(--accent-2)}
+.offer h2{color:var(--bg)}
+.offer .lede{color:color-mix(in srgb,var(--bg) 72%,transparent)}
+.stack{display:grid;gap:0;margin-top:30px;border-top:1px solid color-mix(in srgb,var(--bg) 18%,transparent)}
+.stack-item{display:grid;grid-template-columns:1fr auto;gap:16px;padding:16px 0;border-bottom:1px solid color-mix(in srgb,var(--bg) 14%,transparent)}
+.stack-item h4{margin:0;font:600 16.5px/1.3 var(--body);color:var(--bg)}
+.stack-item p{font-size:14.5px;color:color-mix(in srgb,var(--bg) 62%,transparent);margin-top:4px}
+.stack-item .badge{align-self:start;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);border:1px solid color-mix(in srgb,var(--accent-2) 50%,transparent);border-radius:99px;padding:6px 9px;white-space:nowrap}
+.guarantee{background:color-mix(in srgb,var(--bg) 7%,transparent);border:1px solid color-mix(in srgb,var(--bg) 18%,transparent);border-radius:22px;padding:28px;display:grid;gap:16px;align-content:start}
+.seal{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;text-align:center;background:conic-gradient(from 0deg,var(--accent),var(--accent-2),var(--accent));color:#141414;font:800 13px/1.05 var(--display);font-stretch:110%;letter-spacing:.02em;text-transform:uppercase;animation:spin 18s linear infinite}
+.seal span{display:block;width:80px;height:80px;border-radius:50%;background:var(--ink);color:var(--accent-2);display:grid;place-items:center;animation:spin 18s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.guarantee h3{color:var(--bg)}
+.guarantee p{color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:15.5px}
+.slots{display:flex;gap:8px;align-items:center;font:500 13px/1 var(--mono);color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.slots i{width:22px;height:8px;border-radius:4px;background:var(--accent-2)}
+.slots i.taken{background:color-mix(in srgb,var(--bg) 20%,transparent)}
+
+/* founder */
+.founder{display:grid;grid-template-columns:340px 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+@media (max-width:860px){.founder{grid-template-columns:1fr}}
+.portrait{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:1;max-width:100%;box-shadow:var(--shadow);border:1px solid var(--line)}
+.portrait figcaption{position:absolute;left:12px;bottom:12px;font:500 12px/1 var(--mono);background:rgba(14,15,17,.75);color:#fff;padding:8px 10px;border-radius:8px}
+.quote{font:600 clamp(22px,2.4vw,30px)/1.3 var(--display);font-stretch:105%;letter-spacing:-.01em;text-wrap:balance}
+.sign{margin-top:18px;color:var(--ink-3);font-size:15px}
+
+/* scorecard teaser */
+.lm{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center;background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,4.5vw,56px);box-shadow:var(--shadow)}
+@media (max-width:900px){.lm{grid-template-columns:1fr}}
+.gauge{position:relative;max-width:360px;margin-inline:auto;width:100%}
+.gauge svg{width:100%;height:auto;overflow:visible}
+.gauge .g-bg{fill:none;stroke:var(--bg-2);stroke-width:20;stroke-linecap:round}
+.gauge .g-fg{fill:none;stroke:url(#gg);stroke-width:20;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 1.8s cubic-bezier(.2,.7,.2,1)}
+.gauge .score{position:absolute;left:0;right:0;bottom:6px;text-align:center}
+.gauge .score b{display:block;font:800 64px/1 var(--display);font-stretch:112%}
+.gauge .score span{font:500 12px/1 var(--mono);color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
+.leaks{display:grid;gap:10px;margin-top:22px}
+.leak{display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink-2)}
+.leak i{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+/* faq */
+.faq{display:grid;gap:10px;margin-top:36px;max-width:860px}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0 22px}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;padding:20px 0;font:600 17px/1.35 var(--body)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:400 26px/1 var(--body);color:var(--accent);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 20px;color:var(--ink-2);max-width:68ch}
+summary:focus-visible{outline:3px solid var(--accent-2);outline-offset:4px;border-radius:8px}
+
+/* final */
+.final{text-align:left;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.sample{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(20px,3.5vw,32px);box-shadow:var(--shadow);display:grid;gap:14px;min-width:0}
+.sample-sub{color:var(--ink-2);font-size:15.5px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.fgrid{grid-template-columns:1fr}}
+.fld{display:grid;gap:6px;min-width:0}
+.fld.wide{grid-column:1/-1}
+.fld span{font:500 13.5px/1.2 var(--body);color:var(--ink-2)}
+.fld i{color:var(--accent);font-style:normal}
+.fld em,.more em{font-style:normal;color:var(--ink-3);font-weight:400}
+.fld input{font:500 16px/1.2 var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 14px;width:100%;min-width:0}
+.fld input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.fld input:user-invalid{border-color:var(--accent)}
+[hidden]{display:none!important}
+details.more{background:none;border:0;border-radius:0;padding:0}
+.more summary{display:block;cursor:pointer;font:500 14px/1.3 var(--body);color:var(--ink-2);padding:6px 0;list-style:none}
+.more summary::after{content:none}
+.more summary::before{content:"+ ";color:var(--accent);font-weight:700}
+.more[open] summary::before{content:"– "}
+.more .fgrid{margin-top:10px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.fine{font-size:13px;color:var(--ink-3)}
+.ferr{color:var(--accent);font-size:14px;min-height:0;margin:0}
+@media (max-width:860px){.final{grid-template-columns:1fr}}
+.final h2{font-size:clamp(36px,5.6vw,72px)}
+footer{border-top:1px solid var(--line);padding-block:30px;color:var(--ink-3);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.sticky-cta .btn{width:100%;justify-content:center}
+@media (max-width:700px){.sticky-cta.show{display:block}}
+
+/* scroll reveal: content is visible at rest; JS only adds a gentle lift when supported */
+.js .rv{transition:opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.pre{opacity:.001;transform:translateY(24px)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv.pre{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/slabline-mark.png" alt="">Slabline</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#brand">Your brand</a>
+      <a href="#offer">What you get</a>
+      <a href="scorecard.html">Free scorecard</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary" href="https://calendly.com/glintvex/concrete" target="_blank" rel="noopener">Book a 20-min call</a>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero speckle">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span>For US residential concrete contractors</span>
+      <h1 id="h1">Your price in the homeowner's hands <span class="hl">the same afternoon.</span> Under your name.</h1>
+      <p class="lede">We set up quoting, approvals, deposits and follow-ups for your concrete company. Measure from satellite, price from your own numbers, and send a quote with your logo on it before the other guys call back.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://calendly.com/glintvex/concrete" target="_blank" rel="noopener">See it with your logo <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="scorecard.html">Score your quoting in 60 sec</a>
+      </div>
+      <div class="proofline">
+        <span><b>Done for you</b> · we set it up</span>
+        <span><b>Your logo</b> on every quote</span>
+        <span><b>Live in 7 days</b></span>
+      </div>
+    </div>
+
+    <div class="machine" id="machine" aria-label="Animated example: a driveway quote being measured, priced, sent and approved">
+      <div class="sheet">
+        <div class="sheet-top"><span class="dots"><i></i><i></i><i></i></span>Estimate #1005 · Backyard patio<span class="live">● building</span></div>
+        <div class="sat">
+          <canvas id="sat"></canvas>
+          <svg viewBox="0 0 400 210" preserveAspectRatio="none" aria-hidden="true">
+            <polygon class="poly" id="poly" points="88,58 286,44 312,152 104,170"/>
+            <circle class="vtx" cx="88" cy="58" r="5"/><circle class="vtx" cx="286" cy="44" r="5"/><circle class="vtx" cx="312" cy="152" r="5"/><circle class="vtx" cx="104" cy="170" r="5"/>
+          </svg>
+          <div class="area">AREA <b id="area">0</b> sq ft · 4" slab</div>
+        </div>
+        <div class="lines" id="lines">
+          <div class="li"><span>Excavate &amp; grade<small>252 sq ft × $0.84</small></span><span class="amt">$211.68</span></div>
+          <div class="li"><span>Gravel base, 4" compacted<small>252 sq ft × $1.26</small></span><span class="amt">$317.52</span></div>
+          <div class="li"><span>Rebar #3, 18" o.c.<small>252 sq ft × $0.70</small></span><span class="amt">$176.40</span></div>
+          <div class="li"><span>Ready-mix, 3000 psi<small>3.5 cu yd × $231.00</small></span><span class="amt">$808.50</span></div>
+          <div class="li"><span>Form, pour &amp; broom finish<small>252 sq ft × $3.85</small></span><span class="amt">$970.20</span></div>
+        </div>
+        <div class="total"><small>Total</small><span id="total">$0.00</span></div>
+      </div>
+      <div class="sent-tag" id="sent">SENT 2:14 PM · SAME DAY</div>
+      <div class="phone" id="phone"><div class="scr">
+        <img src="assets/phone-estimate.jpg" alt="Homeowner's view of the estimate with the ABC Concrete logo">
+        <img class="appr" id="appr" src="assets/phone-approved.jpg" alt="Estimate approved by the homeowner">
+      </div></div>
+      <div class="toast" id="toast"><span class="ok">✓</span><span><b>Linda approved</b>Deposit $758.94 due</span></div>
+      <div class="demo-note">ABC Concrete is a demo company</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track">
+  <span>Driveways</span><span>Patios</span><span>Sidewalks</span><span>Stamped &amp; colored</span><span>Tear-out &amp; haul</span><span>Pump access</span><span>4" &amp; 6" slabs</span><span>3000–4000 psi</span><span>Control joints</span><span>Garage slabs</span>
+  <span>Driveways</span><span>Patios</span><span>Sidewalks</span><span>Stamped &amp; colored</span><span>Tear-out &amp; haul</span><span>Pump access</span><span>4" &amp; 6" slabs</span><span>3000–4000 psi</span><span>Control joints</span><span>Garage slabs</span>
+</div></div>
+
+<!-- PROBLEM -->
+<section class="band">
+  <div class="wrap split">
+    <div class="rv">
+      <p class="eyebrow">The problem</p>
+      <h2 style="margin-top:14px">You don't lose the job on price. You lose it on <span class="u">time.</span></h2>
+      <p class="lede" style="margin-top:20px">The homeowner called three or four companies. Whoever gets a clear, professional price in front of them first usually gets the next conversation. Meanwhile you're driving out to measure, doing the math at night, and texting a number.</p>
+      <div class="facts">
+        <div class="fact"><span class="k">01</span><p><b>Quotes go out days late</b> because measuring and pricing happen after the crew goes home.</p></div>
+        <div class="fact"><span class="k">02</span><p><b>Nobody follows up.</b> The homeowner goes quiet and the job drifts to whoever called back.</p></div>
+        <div class="fact"><span class="k">03</span><p><b>Your price gets buried.</b> One $/sq ft number hides tear-out, access and thickness, and eats your margin.</p></div>
+      </div>
+    </div>
+    <div class="race rv" id="race">
+      <p class="eyebrow" style="color:var(--ink-3)">Who gets the next call?</p>
+      <div style="height:18px"></div>
+      <div class="race-row"><div class="lbl"><b>You, with Slabline</b><span class="mono">same day</span></div><div class="track"><div class="bar win" data-w="100"></div></div></div>
+      <div class="race-row"><div class="lbl"><span>Contractor 2</span><span class="mono">3 days</span></div><div class="track"><div class="bar" data-w="52"></div></div></div>
+      <div class="race-row"><div class="lbl"><span>Contractor 3</span><span class="mono">5 days</span></div><div class="track"><div class="bar" data-w="34"></div></div></div>
+      <div class="race-row"><div class="lbl"><span>Contractor 4</span><span class="mono">1 week</span></div><div class="track"><div class="bar" data-w="18"></div></div></div>
+      <p class="race-foot">Illustration of quote turnaround. The first clear, professional price usually gets the conversation.</p>
+    </div>
+  </div>
+</section>
+
+<div class="joint wrap" data-label="How it works"></div>
+
+<!-- HOW -->
+<section class="band" id="how">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2 style="margin-top:14px;max-width:18ch">From inquiry to paid deposit, without the evening paperwork.</h2>
+    <div class="steps">
+      <div class="step-list" id="steps">
+        <div class="step on" data-i="0"><span class="n">1</span><div><h3>Measure from your desk</h3><p>Type the address, click the corners on satellite imagery, and the square footage drops into the estimate. You still visit before you pour.</p><span class="tag">SATELLITE MEASURE</span></div></div>
+        <div class="step" data-i="1"><span class="n">2</span><div><h3>Price from your own numbers</h3><p>Your costs for ready-mix, base, rebar, labor, tear-out and pump. Line items, options and markup, so the homeowner sees why it costs what it costs.</p><span class="tag">YOUR PRICE BOOK</span></div></div>
+        <div class="step" data-i="2"><span class="n">3</span><div><h3>Send it under your logo</h3><p>The homeowner gets a clean estimate page with your name, colors and terms. Good / better / best options on one page.</p><span class="tag">WHITE-LABEL</span></div></div>
+        <div class="step" data-i="3"><span class="n">4</span><div><h3>They approve and pay the deposit</h3><p>They pick an option, sign, and pay the deposit online. You get notified and the job moves to scheduling.</p><span class="tag">E-SIGN + DEPOSIT</span></div></div>
+        <div class="step" data-i="4"><span class="n">5</span><div><h3>Follow-ups run themselves</h3><p>No reply? A friendly nudge goes out from you, on schedule. Invoices and QuickBooks sync when the job's done.</p><span class="tag">AUTO FOLLOW-UP · QUICKBOOKS</span></div></div>
+      </div>
+      <div class="stage">
+        <div class="screen">
+          <div class="screen-bar"><i></i><i></i><i></i><span id="shot-url">abcconcrete · estimates</span></div>
+          <div class="shots" id="shots">
+            <div class="shot-phone on"><img src="assets/phone-estimate.jpg" alt="Estimate top with logo and address" loading="lazy"></div>
+            <img src="assets/dash-estimate.jpg" alt="Estimate builder with line items and markup" loading="lazy">
+            <div class="shot-phone"><img src="assets/phone-options.jpg" alt="Homeowner options: broom finish or stamped" loading="lazy"></div>
+            <div class="shot-phone"><img src="assets/phone-approved.jpg" alt="Approved estimate with deposit due" loading="lazy"></div>
+            <img src="assets/dash-list.jpg" alt="Estimates list with sent, viewed and approved status" loading="lazy">
+          </div>
+        </div>
+        <p class="caption" id="shot-cap">Real screens from the platform · ABC Concrete is a demo company</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="joint wrap" data-label="Your brand"></div>
+
+<!-- BRAND -->
+<section class="band" id="brand">
+  <div class="wrap split">
+    <div class="rv">
+      <p class="eyebrow">White-label</p>
+      <h2 style="margin-top:14px">Same price. Which one would you sign?</h2>
+      <p class="lede" style="margin-top:20px">A homeowner is about to hand somebody $10–15k for a driveway. They're picking the company that looks real. Drag the slider.</p>
+      <ul class="ticks">
+        <li><span><b>Your logo, colors and terms</b> on every estimate, invoice and email.</span></li>
+        <li><span><b>No software brand</b> in front of your customers. They never hear about us.</span></li>
+        <li><span><b>Itemized and optioned,</b> so price pushback turns into walking them through the job.</span></li>
+      </ul>
+    </div>
+    <div class="rv">
+      <div class="compare" id="cmp">
+        <div class="cmp-side cmp-text"><div class="sms"><div class="who">Text message · 4 days later</div><div class="bubble">Hey it's Mike. Driveway comes to $9,800. Let me know</div></div></div>
+        <div class="cmp-side cmp-brand" id="cmp-b"><img src="assets/phone-estimate.jpg" alt="Branded estimate from ABC Concrete"></div>
+        <div class="cmp-handle" id="cmp-h"></div>
+        <input class="cmp-range" id="cmp-r" type="range" min="0" max="100" value="50" aria-label="Compare a texted price with a branded estimate">
+      </div>
+      <div class="cmp-labels"><span>The text</span><span>Your branded estimate</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="band" id="offer">
+  <div class="wrap">
+    <div class="offer rv">
+      <div class="offer-in">
+        <div>
+          <p class="eyebrow">The offer</p>
+          <h2 style="margin-top:14px">The Same-Day Quote Setup</h2>
+          <p class="lede" style="margin-top:18px">We build it with your numbers and your brand, then hand you the keys. Get set up this winter and you're quoting same-day when the spring calls start.</p>
+          <div class="stack">
+            <div class="stack-item"><div><h4>Your price book, built for you</h4><p>We turn your real costs into line items and templates for your 5 most common jobs.</p></div><span class="badge">Done for you</span></div>
+            <div class="stack-item"><div><h4>Branded estimates, invoices and emails</h4><p>Logo, colors, terms and deposit rules set up before your first quote.</p></div><span class="badge">Done for you</span></div>
+            <div class="stack-item"><div><h4>Satellite measuring + good/better/best options</h4><p>Price a driveway from your desk and let homeowners upgrade themselves.</p></div><span class="badge">Included</span></div>
+            <div class="stack-item"><div><h4>Online approval, e-sign and deposits</h4><p>Homeowners approve and pay the deposit from their phone.</p></div><span class="badge">Included</span></div>
+            <div class="stack-item"><div><h4>Follow-up plan, written for you</h4><p>Friendly reminders that go out under your name when a quote goes quiet.</p></div><span class="badge">Done for you</span></div>
+            <div class="stack-item"><div><h4>Website quote form + QuickBooks</h4><p>Leads arrive organized; invoices sync to your books.</p></div><span class="badge">Included</span></div>
+            <div class="stack-item"><div><h4>30 days of tweaks + a team walkthrough</h4><p>We adjust prices and templates until it quotes the way you do.</p></div><span class="badge">Bonus</span></div>
+          </div>
+        </div>
+        <aside class="guarantee">
+          <div class="seal"><span>7-DAY<br>LIVE</span></div>
+          <h3>Live in 7 days, or the setup is free.</h3>
+          <p>Send us your logo and price list. Within 7 days your quoting system is fully set up: your brand, your prices, deposits and follow-ups, ready to send real quotes. Most setups are done in 3–5 days. If we miss 7, you don't pay for setup.</p>
+          <div class="slots" aria-label="Setup slots this month"><i class="taken"></i><i class="taken"></i><i></i><i></i><i></i><span>3 of 5 setup slots open this month</span></div>
+          <a class="btn btn-primary" href="https://calendly.com/glintvex/concrete" target="_blank" rel="noopener" style="justify-content:center">Book your 20-min walkthrough <span class="arr">→</span></a>
+          <p style="font-size:13.5px">On the call I'll show you the system with your logo on it. If it isn't a fit, I'll tell you.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="band">
+  <div class="wrap founder">
+    <figure class="portrait rv" style="margin:0"><img src="assets/saim.jpg" alt="Saim, founder of Slabline" loading="lazy"><figcaption>Saim · founder</figcaption></figure>
+    <div class="rv">
+      <p class="eyebrow">Who's behind it</p>
+      <p class="quote" style="margin-top:16px">"I'm not a concrete guy. I build systems for small businesses, and in concrete I kept seeing great crews lose jobs on the paperwork. You know concrete. I know how to get the quote out the same day and the money in faster."</p>
+      <p class="sign">Saim, founder · I set up every account myself and I'm on every call.</p>
+      <div class="cta-row"><a class="btn btn-ghost" href="https://www.instagram.com/slabline.app/" target="_blank" rel="noopener">Watch the videos on Instagram</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="band" id="score">
+  <div class="wrap">
+    <div class="lm rv">
+      <div>
+        <p class="eyebrow">Free · 60 seconds</p>
+        <h2 style="margin-top:14px">How many jobs is your quoting costing you?</h2>
+        <p class="lede" style="margin-top:18px">Answer 7 quick questions about how you quote today. Get your Quote Speed Score, the 3 biggest leaks, and a rough number for the jobs slipping away each month.</p>
+        <div class="leaks">
+          <div class="leak"><i></i>Turnaround time vs. what homeowners expect</div>
+          <div class="leak"><i></i>Follow-up, deposits and how your quote looks</div>
+          <div class="leak"><i></i>A plain-English fix list you can use with or without us</div>
+        </div>
+        <div class="cta-row"><a class="btn btn-primary" href="scorecard.html">Get my score <span class="arr">→</span></a></div>
+      </div>
+      <div class="gauge" id="gauge" aria-hidden="true">
+        <svg viewBox="0 0 320 180"><defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs>
+          <path class="g-bg" d="M20 170 A140 140 0 0 1 300 170"/><path class="g-fg" id="gfg" d="M20 170 A140 140 0 0 1 300 170"/></svg>
+        <div class="score"><b id="gnum">0</b><span>Example score</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="band" id="faq">
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2 style="margin-top:14px">Straight answers.</h2>
+    <div class="faq">
+      <details><summary>Do my customers ever see "Slabline"?</summary><p>No. Estimates, invoices, emails and the approval page carry your company name, logo and colors.</p></details>
+      <details><summary>How long does setup take, and what do you need from me?</summary><p>About a week. Send your logo, your typical costs (ready-mix, base, rebar, labor, tear-out, pump) and two or three past quotes. We build the rest and walk you through it.</p></details>
+      <details><summary>I already use Jobber / a spreadsheet / paper. Why switch?</summary><p>You may not need to. On the call we look at how you quote today. If what you have works, I'll say so. Slabline is built around concrete jobs: satellite measuring, $/sq ft and cu yd math, tear-out and pump access, and options homeowners can pick.</p></details>
+      <details><summary>Do I still need to visit the site?</summary><p>For the pour, yes. Satellite measuring gets the homeowner a real price fast. You still check grade, access and base before you pour.</p></details>
+      <details><summary>What does it cost?</summary><p>It depends on your crew size and what you need set up. I'll give you a straight number on the call, and the setup is covered by the 7-day guarantee.</p></details>
+      <details><summary>Where are you based?</summary><p>I work with US contractors remotely and keep calls on US hours. Everything runs in the browser, on your phone and computer.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="band speckle" style="border-top:1px solid var(--line)" id="sample">
+  <div class="wrap final">
+    <div>
+      <h2>Be the first clear price they see.</h2>
+      <p class="lede" style="margin-top:20px">20 minutes. You tell me how you quote today. I show you the system with your logo on it.</p>
+      <div class="cta-row"><a class="btn btn-primary" href="https://calendly.com/glintvex/concrete" target="_blank" rel="noopener">Book a 20-min call <span class="arr">→</span></a></div>
+    </div>
+    <form class="sample" id="sampleForm" novalidate>
+      <p class="eyebrow">Not ready for a call?</p>
+      <h3 style="margin-top:10px">Get a free sample quote with your logo on it.</h3>
+      <p class="sample-sub">Tell us who you are. Within 24 hours we'll send you a real driveway estimate built under your company name, so you can see exactly what your homeowners would get.</p>
+      <div id="sampleFields"></div>
+      <p class="ferr" id="sampleErr" role="alert"></p>
+      <button class="btn btn-primary" type="submit" id="sampleBtn" style="justify-content:center">Send me my sample <span class="arr">→</span></button>
+      <p class="fine">No spam. We'll use this only to send your sample and follow up.</p>
+    </form>
+    <div class="sample sent" id="sampleDone" hidden>
+      <p class="eyebrow" style="color:var(--good)">Got it ✓</p>
+      <h3 style="margin-top:10px">Your sample is on the way.</h3>
+      <p class="sample-sub">Reply to our email with your logo and one recent quote if you have them. It makes the sample look exactly like yours.</p>
+      <a class="btn btn-ghost" href="scorecard.html">Meanwhile, score your quoting (60 sec)</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Slabline · Quoting systems for concrete contractors</span><span>ABC Concrete shown throughout is a fictional demo company.</span></div></footer>
+<div class="sticky-cta" id="scta"><a class="btn btn-primary" href="https://calendly.com/glintvex/concrete" target="_blank" rel="noopener">Book a 20-min call <span class="arr">→</span></a></div>
+
+<script src="config.js"></script>
+<script src="lead.js"></script>
+<script>
+(function(){
+  const root=document.documentElement; root.classList.add('js');
+
+  // free sample lead form
+  const sf=document.getElementById('sampleForm');
+  if(sf && window.LEAD_FIELDS_HTML){
+    document.getElementById('sampleFields').innerHTML=LEAD_FIELDS_HTML('s');
+    sf.addEventListener('submit',e=>{
+      e.preventDefault();
+      const err=document.getElementById('sampleErr');
+      if(!sf.checkValidity()){ err.textContent='Please fill in the required fields.'; const bad=sf.querySelector(':invalid'); bad&&bad.focus(); return; }
+      err.textContent='';
+      const d=readLead(sf); if(!d) return;
+      const btn=document.getElementById('sampleBtn'); btn.disabled=true; btn.textContent='Sending…';
+      sendLead(Object.assign({'Request':'Free branded sample quote'},d),'Sample quote request: '+(d.company||d.name))
+        .then(()=>{ sf.hidden=true; document.getElementById('sampleDone').hidden=false; })
+        .catch(er=>{ console.warn(er); btn.disabled=false; btn.innerHTML='Send me my sample <span class="arr">→</span>'; err.textContent='That didn\'t send. Please try again, or book a call above.'; });
+    });
+  }
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // headline word reveal
+  const h1=document.getElementById('h1');
+  if(!reduce){ let i=0; h1.querySelectorAll('*').forEach(()=>{});
+    const walk=(node)=>{ [...node.childNodes].forEach(n=>{ if(n.nodeType===3){ const frag=document.createDocumentFragment(); n.textContent.split(/(\s+)/).forEach(w=>{ if(!w.trim()){frag.appendChild(document.createTextNode(w));return;} const s=document.createElement('span'); s.className='reveal-word'; s.style.animationDelay=(i++*55)+'ms'; s.textContent=w; frag.appendChild(s); }); n.replaceWith(frag);} else walk(n); }); };
+    walk(h1); }
+
+  // nav state + progress
+  const nav=document.getElementById('nav'), prog=document.getElementById('progress'), scta=document.getElementById('scta');
+  const onScroll=()=>{ const y=scrollY, h=document.documentElement.scrollHeight-innerHeight; nav.classList.toggle('scrolled',y>8); prog.style.width=(h>0?y/h*100:0)+'%'; scta.classList.toggle('show',y>700); };
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  // reveal on scroll (content visible at rest; only below-fold items get pre state)
+  const rvs=[...document.querySelectorAll('.rv')];
+  if('IntersectionObserver' in window && !reduce){
+    rvs.forEach(el=>{ if(el.getBoundingClientRect().top>innerHeight) el.classList.add('pre'); });
+    const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.remove('pre'); io.unobserve(e.target);} }),{rootMargin:'0px 0px -10% 0px'});
+    rvs.forEach(el=>io.observe(el));
+  }
+
+  // satellite canvas: procedural aerial texture
+  const cv=document.getElementById('sat'), cx=cv.getContext('2d');
+  function drawSat(){ const r=cv.getBoundingClientRect(); const d=devicePixelRatio||1; cv.width=r.width*d; cv.height=r.height*d; cx.scale(d,d); const W=r.width,H=r.height;
+    cx.fillStyle='#55603f'; cx.fillRect(0,0,W,H);
+    let seed=7; const rnd=()=>{seed=(seed*16807)%2147483647; return seed/2147483647;};
+    for(let i=0;i<900;i++){ cx.fillStyle=`rgba(${70+rnd()*40|0},${90+rnd()*40|0},${50+rnd()*25|0},.5)`; const s=2+rnd()*7; cx.fillRect(rnd()*W,rnd()*H,s,s); }
+    // house roof
+    cx.fillStyle='#6e6a66'; cx.beginPath(); cx.moveTo(W*.02,H*.02); cx.lineTo(W*.2,H*.0); cx.lineTo(W*.21,H*.22); cx.lineTo(W*.03,H*.25); cx.fill();
+    cx.strokeStyle='rgba(255,255,255,.15)'; cx.lineWidth=1; for(let k=0;k<6;k++){cx.beginPath();cx.moveTo(W*.03,H*(.04+k*.035));cx.lineTo(W*.2,H*(.02+k*.035));cx.stroke();}
+    // existing old slab area (grey)
+    cx.fillStyle='#9c9a92'; cx.beginPath(); cx.moveTo(W*.22,H*.28); cx.lineTo(W*.715,H*.21); cx.lineTo(W*.78,H*.72); cx.lineTo(W*.26,H*.81); cx.fill();
+    // street
+    cx.fillStyle='#3c3f43'; cx.fillRect(0,H*.88,W,H*.12); cx.fillStyle='rgba(255,220,120,.6)'; for(let x=10;x<W;x+=40) cx.fillRect(x,H*.935,20,2);
+    // trees
+    for(let t=0;t<9;t++){ const x=W*(.82+rnd()*.17), y=H*(rnd()*.8), r=10+rnd()*16; const g=cx.createRadialGradient(x-3,y-3,2,x,y,r); g.addColorStop(0,'#5d7a3a'); g.addColorStop(1,'#2f4220'); cx.fillStyle=g; cx.beginPath(); cx.arc(x,y,r,0,7); cx.fill(); }
+  }
+  drawSat(); addEventListener('resize',()=>{cx.setTransform(1,0,0,1,0,0); drawSat();});
+
+  // hero machine timeline
+  const poly=document.getElementById('poly'), vtx=[...document.querySelectorAll('.vtx')], area=document.getElementById('area');
+  const lis=[...document.querySelectorAll('.li')], total=document.getElementById('total'), sent=document.getElementById('sent');
+  const phone=document.getElementById('phone'), appr=document.getElementById('appr'), toast=document.getElementById('toast');
+  const amts=[211.68,317.52,176.40,808.50,970.20];
+  const ease=t=>1-Math.pow(1-t,3);
+  const tween=(ms,fn)=>new Promise(res=>{ const t0=performance.now(); const f=now=>{ const k=Math.min(1,(now-t0)/ms); fn(ease(k)); k<1?requestAnimationFrame(f):res(); }; requestAnimationFrame(f); });
+  const wait=ms=>new Promise(r=>setTimeout(r,ms));
+  const fmt=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  function reset(){ poly.style.strokeDashoffset=900; vtx.forEach(v=>v.style.opacity=0); area.textContent='0'; lis.forEach(l=>{l.style.opacity=0;l.style.transform='translateY(6px)'}); total.textContent=fmt(0); sent.style.opacity=0; phone.style.opacity=0; phone.style.transform='translateY(40px) rotate(4deg)'; appr.style.opacity=0; toast.style.opacity=0; toast.style.transform='translateY(10px)'; }
+  function finalState(){ poly.style.strokeDashoffset=0; vtx.forEach(v=>v.style.opacity=1); area.textContent='252'; lis.forEach(l=>{l.style.opacity=1;l.style.transform='none'}); total.textContent=fmt(2484.30); sent.style.opacity=1; phone.style.opacity=1; phone.style.transform='rotate(4deg)'; appr.style.opacity=1; toast.style.opacity=1; toast.style.transform='none'; }
+  async function run(){
+    reset(); await wait(500);
+    for(let i=0;i<4;i++){ vtx[i].style.transition='opacity .2s'; vtx[i].style.opacity=1; await wait(220); }
+    await tween(900,k=>{ poly.style.strokeDashoffset=900*(1-k); area.textContent=Math.round(252*k); });
+    await wait(300); let run=0;
+    for(let i=0;i<lis.length;i++){ lis[i].style.transition='opacity .35s, transform .35s'; lis[i].style.opacity=1; lis[i].style.transform='none'; const from=run; run+=amts[i]; await tween(380,k=>total.textContent=fmt(from+(run-from)*k)); }
+    total.textContent=fmt(2484.30); await wait(400);
+    sent.style.transition='opacity .4s'; sent.style.opacity=1;
+    phone.style.transition='opacity .6s, transform .8s cubic-bezier(.2,.7,.2,1)'; phone.style.opacity=1; phone.style.transform='rotate(4deg)';
+    await wait(1700); appr.style.opacity=1; await wait(300);
+    toast.style.transition='opacity .4s, transform .4s'; toast.style.opacity=1; toast.style.transform='none';
+    await wait(4200); run_loop();
+  }
+  let looping=false; function run_loop(){ if(document.hidden){ setTimeout(run_loop,1000); return;} run(); }
+  if(reduce){ finalState(); } else { finalState(); setTimeout(run,900); }
+
+  // race bars
+  const bars=[...document.querySelectorAll('.bar')];
+  const fill=()=>bars.forEach((b,i)=>setTimeout(()=>b.style.width=b.dataset.w+'%',i*140));
+  if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ if(es[0].isIntersecting){ fill(); io.disconnect(); } },{threshold:.3}); io.observe(document.getElementById('race')); } else fill();
+
+  // steps
+  const steps=[...document.querySelectorAll('.step')], shots=[...document.getElementById('shots').children];
+  const urls=['homeowner view · estimate','abcconcrete · estimate builder','homeowner view · options','homeowner view · approved','abcconcrete · estimates'];
+  const urlEl=document.getElementById('shot-url'); let cur=0, timer;
+  function show(i){ cur=i; steps.forEach((s,k)=>s.classList.toggle('on',k===i)); shots.forEach((s,k)=>s.classList.toggle('on',k===i)); urlEl.textContent=urls[i]; }
+  steps.forEach((s,i)=>{ s.tabIndex=0; s.addEventListener('click',()=>{show(i); clearInterval(timer);}); s.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault(); show(i); clearInterval(timer);} }); });
+  if(!reduce) timer=setInterval(()=>show((cur+1)%steps.length),3800);
+
+  // compare slider
+  const r=document.getElementById('cmp-r'), b=document.getElementById('cmp-b'), hnd=document.getElementById('cmp-h');
+  const setCmp=v=>{ b.style.clipPath=`inset(0 0 0 ${v}%)`; hnd.style.left=v+'%'; };
+  r.addEventListener('input',()=>setCmp(r.value)); setCmp(50);
+  if(!reduce){ let t=0; const auto=setInterval(()=>{ t+=.04; const v=50+Math.sin(t)*22; setCmp(v); r.value=v; },40); ['pointerdown','touchstart','focus'].forEach(ev=>r.addEventListener(ev,()=>clearInterval(auto),{once:true})); }
+
+  // gauge
+  const gfg=document.getElementById('gfg'), gnum=document.getElementById('gnum');
+  const goGauge=()=>{ const target=48; gfg.style.strokeDashoffset=440*(1-target/100); tween(1800,k=>gnum.textContent=Math.round(target*k)); };
+  if('IntersectionObserver' in window){ const io=new IntersectionObserver(es=>{ if(es[0].isIntersecting){ goGauge(); io.disconnect(); } },{threshold:.4}); io.observe(document.getElementById('gauge')); } else goGauge();
+})();
+</script>
+
+</body>
+</html>
