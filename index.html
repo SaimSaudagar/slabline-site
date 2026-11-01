@@ -87,6 +87,9 @@ p{margin:0}
 
 /* nav */
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:saturate(1.4) blur(14px)}
+.nav{transition:transform .38s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.nav.hide{transform:translateY(calc(-100% - env(safe-area-inset-top,0px) - 2px))}
+.nav.lifted{box-shadow:0 8px 24px -16px rgba(18,20,26,.35)}
 .nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:21px;letter-spacing:-.03em}
 .brand img{width:30px;height:30px;border-radius:8px}
@@ -611,6 +614,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
   // sticky mobile CTA
   const scta=document.getElementById('scta');
   addEventListener('scroll',()=>scta.classList.toggle('show',scrollY>700),{passive:true});
+  // header hides while scrolling down, comes back as soon as you scroll up
+  (function(){ const nav=document.querySelector('.nav'); let last=scrollY, acc=0;
+    addEventListener('scroll',()=>{ const y=scrollY, d=y-last; last=y;
+      if(y<80){ nav.classList.remove('hide'); nav.classList.remove('lifted'); acc=0; return; }
+      nav.classList.add('lifted');
+      acc = (Math.sign(d)===Math.sign(acc)) ? acc+d : d;
+      if(acc>12) nav.classList.add('hide'); else if(acc<-8) nav.classList.remove('hide'); },{passive:true});
+    nav.addEventListener('focusin',()=>nav.classList.remove('hide'));
+  })();
 
   // sample lead form
   const sf=document.getElementById('sampleForm');
