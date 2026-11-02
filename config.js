@@ -3,5 +3,5 @@ window.SLABLINE_CONFIG = {
   leadInbox: "gptsaim@gmail.com",                 // FormSubmit sends every lead here
   calendly: "https://calendly.com/glintvex/concrete",
   instagram: "https://www.instagram.com/slabline.app/",
-  visitorMailApi: ""                                // Vercel function that emails the visitor their copy (Resend)
+  visitorMailApi: "https://slabline-platform.glintvex.com/api/public/marketing/visitor-email" // platform API emails the visitor their copy
 };

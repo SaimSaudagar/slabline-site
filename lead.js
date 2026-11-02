@@ -26,10 +26,10 @@
     });
   };
 
-  // Email the visitor their own copy (scorecard report / sample confirmation) via our Resend function.
+  // Email the visitor their own copy (scorecard report / sample confirmation) via the platform API.
   window.sendVisitorEmail = function(data){
     if(!cfg.visitorMailApi || !data || !data.email) return Promise.resolve({ok:false, skipped:true});
-    return fetch(cfg.visitorMailApi, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) })
+    return fetch(cfg.visitorMailApi, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data), keepalive:true })
       .then(r => r.json().catch(() => ({}))).catch(e => ({ok:false, error:e.message}));
   };
 
