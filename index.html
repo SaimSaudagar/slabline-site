@@ -637,23 +637,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 
       err.textContent='';
       const d=readLead(sf); if(!d) return;
       const btn=document.getElementById('sampleBtn'); btn.disabled=true; btn.textContent='Sending';
-      const first=(d.name||'').trim().split(/\s+/)[0]||'there';
-      const cal=(window.SLABLINE_CONFIG||{}).calendly||'';
-      const auto=`Hi ${first},
-
-Thanks for requesting a sample quote for ${d.company||'your company'}. I'm building it now: a real driveway estimate under your company name, the same page your homeowners would see. You'll get it from me within 24 hours.
-
-To make it look exactly like yours, just reply to this email with:
-- your logo (any format is fine)
-- one recent quote, if you have one handy
-
-Want to walk through it live instead? Book 20 minutes here:
-${cal}
-
-Saim
-Slabline, quoting systems for concrete contractors
-https://slabline.glintvex.com`;
-      sendLead(Object.assign({'Request':'Free branded sample quote'},d),'Sample quote request: '+(d.company||d.name),{autoresponse:auto})
+      sendVisitorEmail({type:'sample', name:d.name, company:d.company, email:d.email});
+      sendLead(Object.assign({'Request':'Free branded sample quote'},d),'Sample quote request: '+(d.company||d.name))
         .then(()=>{ sf.hidden=true; document.getElementById('sampleDone').hidden=false; })
         .catch(er=>{ console.warn(er); btn.disabled=false; btn.textContent='Send me my sample'; err.textContent='Your details didn\'t send. Check your connection and try again, or book a call instead.'; });
     });

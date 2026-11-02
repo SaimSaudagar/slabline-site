@@ -9,9 +9,7 @@
     return /^https?:\/\//i.test(v) ? v : "https://" + v;
   };
 
-  // opts.autoresponse: plain-text email FormSubmit sends to the address in the "email" field
-  window.sendLead = function(fields, subject, opts){
-    opts = opts || {};
+  window.sendLead = function(fields, subject){
     if(!cfg.leadInbox) return Promise.reject(new Error("No lead inbox configured"));
     const body = new FormData();
     Object.keys(fields).forEach(k => { const v = clean(fields[k]); if(v) body.append(k, v); });
@@ -19,7 +17,6 @@
     if(fields.email) body.append("_replyto", clean(fields.email));
     body.append("_template", "table");
     body.append("_captcha", "false");
-    if(opts.autoresponse && fields.email) body.append("_autoresponse", String(opts.autoresponse).slice(0, 4000));
     body.append("Page", location.pathname.split("/").pop() || "index.html");
     return fetch("https://formsubmit.co/ajax/" + encodeURIComponent(cfg.leadInbox), {
       method: "POST", headers: { Accept: "application/json" }, body
@@ -27,6 +24,13 @@
       if(j && (j.success === true || j.success === "true")) return j;
       throw new Error((j && j.message) || "Send failed");
     });
+  };
+
+  // Email the visitor their own copy (scorecard report / sample confirmation) via our Resend function.
+  window.sendVisitorEmail = function(data){
+    if(!cfg.visitorMailApi || !data || !data.email) return Promise.resolve({ok:false, skipped:true});
+    return fetch(cfg.visitorMailApi, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(data) })
+      .then(r => r.json().catch(() => ({}))).catch(e => ({ok:false, error:e.message}));
   };
 
   // Shared field set: required + optional
