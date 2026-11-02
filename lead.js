@@ -9,7 +9,9 @@
     return /^https?:\/\//i.test(v) ? v : "https://" + v;
   };
 
-  window.sendLead = function(fields, subject){
+  // opts.autoresponse: plain-text email FormSubmit sends to the address in the "email" field
+  window.sendLead = function(fields, subject, opts){
+    opts = opts || {};
     if(!cfg.leadInbox) return Promise.reject(new Error("No lead inbox configured"));
     const body = new FormData();
     Object.keys(fields).forEach(k => { const v = clean(fields[k]); if(v) body.append(k, v); });
@@ -17,6 +19,7 @@
     if(fields.email) body.append("_replyto", clean(fields.email));
     body.append("_template", "table");
     body.append("_captcha", "false");
+    if(opts.autoresponse && fields.email) body.append("_autoresponse", String(opts.autoresponse).slice(0, 4000));
     body.append("Page", location.pathname.split("/").pop() || "index.html");
     return fetch("https://formsubmit.co/ajax/" + encodeURIComponent(cfg.leadInbox), {
       method: "POST", headers: { Accept: "application/json" }, body

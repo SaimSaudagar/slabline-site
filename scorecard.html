@@ -240,11 +240,45 @@ footer{padding-block:24px 40px;color:var(--ink-3);font-size:13.5px;text-align:ce
       const btn=document.getElementById('send'); btn.disabled=true; btn.textContent='Preparing your report…';
       const ans={}; Q.forEach(q=>{ if(q.type!=='num') ans['Q: '+q.t]=q.o[A[q.id]][0]; });
       const payload=Object.assign({}, d, {'Score':score+'/100','Quotes per month':A.quotes,'Avg job value':'$'+A.value,'Close rate':A.close+'%'}, ans);
-      sendLead(payload,'Scorecard lead: '+(d.company||d.name)+' scored '+score)
+      const rep=report();
+      const first=(d.name||'').trim().split(/\s+/)[0]||'there';
+      const auto=`Hi ${first},
+
+Thanks for taking the Quote Speed Scorecard. Here's your report.
+
+YOUR SCORE: ${score}/100 (${rep.grade})
+
+YOUR NUMBERS
+- Quotes that don't close each month: ${Math.round(rep.lost)}
+- Jobs you might win back each month: ${rep.jobs<1&&rep.jobs>0?rep.jobs.toFixed(1):Math.round(rep.jobs)}
+- Rough value per month: $${Math.round(rep.monthly).toLocaleString('en-US')}
+(Estimate from your answers: ${A.quotes} quotes x ${100-A.close}% that don't close today. A faster price could win back up to 10% of those and steady follow-up up to another 10%. Not a promise.)
+
+${rep.top.length?'YOUR TOP FIXES\n'+rep.top.map((w,k)=>`${k+1}. ${LEAKS[w.id].h}\n   ${LEAKS[w.id].f}`).join('\n\n'):'You are already quoting fast. Nice work.'}
+
+Want these fixed under your own logo? Book a 20-minute call and I'll show you the system set up with your company name:
+${CAL}
+
+Saim
+Slabline, quoting systems for concrete contractors
+https://slabline.glintvex.com`;
+      sendLead(payload,'Scorecard lead: '+(d.company||d.name)+' scored '+score,{autoresponse:auto})
         .catch(er=>console.warn('Lead send failed:',er.message))
         .finally(()=>{ unlocked=true; results(); });
     });
     const first=f.querySelector('input'); first&&first.focus({preventScroll:true});
+  }
+
+  function report(){
+    let score=0; const weak=[];
+    Q.forEach(q=>{ if(q.type==='num')return; const pts=q.o[A[q.id]][1]; score+=pts; weak.push({id:q.id,gap:(q.max-pts)/q.max*q.max}); });
+    weak.sort((a,b)=>b.gap-a.gap);
+    const top=weak.filter(w=>w.gap>0).slice(0,3);
+    const lost=A.quotes*(1-A.close/100);
+    const speedGap=(25-Q[0].o[A.speed][1])/25, followGap=(20-Q[4].o[A.follow][1])/20;
+    const jobs=lost*(0.10*speedGap+0.10*followGap), monthly=jobs*A.value;
+    const grade=score>=80?'Fast lane':score>=55?'Leaking a few jobs':'Leaking jobs every month';
+    return {score,top,lost,jobs,monthly,grade};
   }
 
   function results(){
