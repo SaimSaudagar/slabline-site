@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="assets/slabline-mark.png">
+<title>Concrete Driveway Cost Calculator (2026) | Slabline</title>
+<meta name="description" content="Free concrete driveway, patio and sidewalk cost calculator. Get cubic yards, material, labor and a low–high price per square foot in 30 seconds. Change the default prices to your own.">
+<link rel="canonical" href="https://slabline.glintvex.com/concrete-cost-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Slabline">
+<meta property="og:url" content="https://slabline.glintvex.com/concrete-cost-calculator.html">
+<meta property="og:title" content="Concrete Driveway Cost Calculator (2026)">
+<meta property="og:description" content="Cubic yards, material, labor and a low–high price per sq ft for driveways, patios, sidewalks and garage floors. Free, with editable prices.">
+<meta property="og:image" content="https://slabline.glintvex.com/assets/dash-estimate.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "How much does a concrete driveway cost per square foot?",
+     "acceptedAnswer": {"@type": "Answer", "text": "It depends on thickness, finish, base, reinforcement, tear-out and local prices. With this calculator's default prices, a plain 4-inch broom-finish driveway on a gravel base with rebar lands around $8 to $10 per square foot, and stamped and colored concrete around $15 to $19. Your local prices may be higher or lower, so treat it as a planning number and get quotes."}},
+    {"@type": "Question", "name": "How many yards of concrete do I need for a 20x30 driveway?",
+     "acceptedAnswer": {"@type": "Answer", "text": "At 4 inches thick: 600 sq ft × (4 ÷ 12) ft = 200 cubic feet, ÷ 27 = 7.41 cubic yards. Add 10% for waste and uneven grade and you get about 8.15 cubic yards. At 5 inches it is about 10.19 yards and at 6 inches about 12.22 yards."}},
+    {"@type": "Question", "name": "Should a driveway be 4, 5 or 6 inches thick?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Four inches is common for patios, sidewalks and driveways that only see passenger cars. Many contractors pour 5 to 6 inches for driveways that carry trucks, RVs or delivery vehicles, or thicken the edges and apron. Check local code and your contractor's recommendation for your soil and use."}},
+    {"@type": "Question", "name": "What is a short-load fee?",
+     "acceptedAnswer": {"@type": "Answer", "text": "Many ready-mix suppliers charge an extra fee when a truck delivers less than a minimum amount, often somewhere around 4 to 5 cubic yards. Small patios and sidewalks often trigger it. The amount and the minimum vary by supplier, so ask yours. This calculator adds a default fee under 4 yards, and you can change it."}},
+    {"@type": "Question", "name": "Is this calculator a quote?",
+     "acceptedAnswer": {"@type": "Answer", "text": "No. It is a planning estimate built from default prices that you can change. A real quote needs a site visit to check grade, soil, drainage, access and local permit requirements."}}
+  ]
+}
+</script>
+<style>
+:root{
+  --bg:#F5F6F8;--bg-2:#E8EBF0;--card:#FFFFFF;--ink:#12141A;--ink-2:#545B66;--ink-3:#757C88;--line:#DFE2E8;
+  --accent:#FF5B1F;--accent-2:#FFC53D;--accent-ink:#FFFFFF;--accent-text:#C7400C;--good:#14A06A;--bad:#C2410C;
+  --shadow:0 18px 40px -22px rgba(22,24,27,.35);
+  --body:"Schibsted Grotesk","Helvetica Neue",Arial,system-ui,sans-serif;--display:var(--body);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#121315;--bg-2:#17191C;--card:#1C1F22;--ink:#EEEFEC;--ink-2:#B4B8BC;--ink-3:#959AA0;--line:#2C3034;--accent:#F0773A;--accent-2:#F6B84F;--accent-ink:#141414;--accent-text:#F59563;--good:#3DBA73;--bad:#F08A5D;--shadow:0 18px 40px -22px rgba(0,0,0,.8);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121315;--bg-2:#17191C;--card:#1C1F22;--ink:#EEEFEC;--ink-2:#B4B8BC;--ink-3:#959AA0;--line:#2C3034;--accent:#F0773A;--accent-2:#F6B84F;--accent-ink:#141414;--accent-text:#F59563;--good:#3DBA73;--bad:#F08A5D;--shadow:0 18px 40px -22px rgba(0,0,0,.8);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:16px}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%;display:block}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font:800 20px/1 var(--display);letter-spacing:-.02em;min-height:44px}
+.brand img{width:32px;height:32px;border-radius:8px}
+.back{font-size:14.5px;color:var(--ink-2);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.back:hover{color:var(--ink)}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.035em;line-height:1.06;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,5.2vw,56px);font-weight:800;max-width:20ch}
+h2{font-size:clamp(24px,3.2vw,34px);font-weight:800}
+h3{font-size:19px;letter-spacing:-.015em;line-height:1.2}
+p{margin:0}
+.eyebrow{font:600 15px/1.2 var(--body);color:var(--accent-text)}
+.lede{color:var(--ink-2);font-size:clamp(17px,1.6vw,19px);max-width:62ch}
+.hl{color:var(--accent)}
+a{color:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:600 16px/1.1 var(--body);min-height:48px;padding:14px 22px;border-radius:999px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .2s, box-shadow .2s, opacity .2s;text-align:center}
+.btn:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 14px 30px -12px var(--accent)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--card);color:var(--ink);border-color:var(--line)}
+.btn[disabled]{opacity:.5;pointer-events:none}
+[hidden]{display:none!important}
+
+.intro{padding-block:clamp(24px,5vw,64px) clamp(20px,3vw,36px);display:grid;gap:16px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;font:500 13px/1 var(--body);color:var(--ink-3);letter-spacing:.04em}
+.meta span::before{content:"◆ ";color:var(--accent);font-size:9px;vertical-align:2px}
+
+/* layout */
+.calc{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);grid-template-areas:"inputs" "result" "assume";margin-bottom:56px}
+@media (min-width:960px){.calc{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-areas:"inputs result" "assume result";gap:24px;align-items:start}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:clamp(18px,3.4vw,32px);min-width:0}
+.inputs{grid-area:inputs;display:grid;gap:22px}
+.assume{grid-area:assume;display:grid;gap:16px}
+.result{grid-area:result;display:grid;gap:18px}
+@media (min-width:960px){.result{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}}
+.card-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.step{font:600 12.5px/1 var(--body);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend,.lbl{font:600 15px/1.3 var(--body);color:var(--ink);padding:0;margin-bottom:10px;display:block}
+legend em,.lbl em{font-style:normal;font-weight:400;color:var(--ink-3)}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:8px}
+.chips.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.chips.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.chip{position:relative;display:block;min-width:0}
+.chip input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.chip span{display:flex;flex-direction:column;justify-content:center;min-height:48px;height:100%;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg);font:500 15.5px/1.25 var(--body);color:var(--ink);transition:border-color .15s, background .15s}
+.chip small{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.chip:hover span{border-color:var(--ink-3)}
+.chip input:checked+span{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--bg));box-shadow:inset 0 0 0 1px var(--accent)}
+.chip input:focus-visible+span{outline:3px solid var(--accent-2);outline-offset:2px}
+
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fgrid.three{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+@media (max-width:560px){.fgrid.stack{grid-template-columns:1fr}}
+.fld{display:grid;gap:6px;min-width:0;align-content:start}
+.fld.wide{grid-column:1/-1}
+.fld>span{font:500 14px/1.25 var(--body);color:var(--ink-2)}
+.fld i{color:var(--accent-text);font-style:normal}
+.fld em{font-style:normal;color:var(--ink-3);font-weight:400}
+.fld input,.fld select{font:500 16px/1.2 var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;min-width:0;min-height:48px}
+.fld select{appearance:none;-webkit-appearance:none;padding-right:40px;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+.fld input:focus,.fld select:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.fld input:user-invalid{border-color:var(--bad)}
+.aff{display:flex;align-items:stretch;background:var(--bg);border:1px solid var(--line);border-radius:12px;min-height:48px;overflow:hidden}
+.aff:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.aff b,.aff em{display:flex;align-items:center;font:500 14px/1 var(--body);color:var(--ink-3);padding:0 0 0 12px;white-space:nowrap}
+.aff em{padding:0 12px 0 4px;font-style:normal}
+.aff input{border:0;background:transparent;padding:12px 6px;box-shadow:none!important;min-height:46px}
+.aff input:focus{outline:none}
+.hint{font-size:13.5px;color:var(--ink-3);line-height:1.45}
+.x{display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-weight:600;padding-top:28px}
+.dims{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px}
+
+/* assumptions */
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px 14px}
+.agroup{grid-column:1/-1;font:600 12.5px/1 var(--body);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase;margin-top:8px;padding-top:12px;border-top:1px solid var(--line)}
+.agroup:first-child{margin-top:0;padding-top:0;border-top:0}
+.linkbtn{background:none;border:0;padding:0 4px;color:var(--ink-2);font:500 14.5px var(--body);text-decoration:underline;cursor:pointer;min-height:44px}
+.saved{font-size:13px;color:var(--good)}
+
+/* result */
+.total{display:grid;gap:4px}
+.total small{font:600 12.5px/1 var(--body);color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+.total b{font:800 clamp(34px,4.6vw,46px)/1.05 var(--display);letter-spacing:-.03em}
+.total .psf{font:600 17px/1.3 var(--body);color:var(--accent-text)}
+.homeowner{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15px;color:var(--ink-2)}
+.homeowner b{color:var(--ink)}
+.yards{display:grid;gap:4px;border-radius:14px;padding:14px;background:color-mix(in srgb,var(--accent-2) 16%,var(--bg));border:1px solid color-mix(in srgb,var(--accent-2) 45%,var(--line))}
+.yards strong{font:800 24px/1.1 var(--display)}
+.yards code{font:500 13.5px/1.5 var(--body);color:var(--ink-2);overflow-wrap:anywhere}
+.bd{width:100%;border-collapse:collapse;font-size:15px}
+.bd th{text-align:left;font-weight:500;color:var(--ink-2);padding:6px 0;vertical-align:top}
+.bd td{text-align:right;padding:6px 0;white-space:nowrap;vertical-align:top;padding-left:10px}
+.bd tr.grp th,.bd tr.grp td{font-weight:700;color:var(--ink);padding-top:12px;border-top:1px solid var(--line)}
+.bd tr.grp:first-child th,.bd tr.grp:first-child td{border-top:0;padding-top:0}
+.bd tr.sum th,.bd tr.sum td{font-weight:800;color:var(--ink);border-top:2px solid var(--ink);padding-top:10px;font-size:16px}
+.bd th small{display:block;color:var(--ink-3);font-size:12.5px}
+.note{font-size:14px;line-height:1.5;border-left:3px solid var(--accent-2);padding:4px 0 4px 12px;color:var(--ink-2)}
+.fine{font-size:13px;color:var(--ink-3);line-height:1.5}
+.mini-cta{display:grid;gap:10px;padding-top:14px;border-top:1px solid var(--line)}
+.mini-cta p{font:600 16px/1.35 var(--body)}
+.mini-cta .row{display:flex;flex-wrap:wrap;gap:8px}
+.mini-cta .btn{flex:1 1 auto}
+.empty{color:var(--ink-3)}
+
+/* sticky mobile total */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(110%);transition:transform .3s}
+.bar.show{transform:none}
+.bar b{font:800 18px/1.1 var(--display)}
+.bar small{display:block;font-size:12.5px;color:var(--ink-3)}
+.bar .btn{min-height:44px;padding:10px 16px;font-size:15px}
+@media (min-width:960px){.bar{display:none}}
+
+/* lead CTA */
+.cta{display:grid;gap:18px;background:#2B2A27;color:#F2F4F9;border-radius:24px;padding:clamp(20px,4vw,40px);margin-bottom:56px}
+.cta h2{color:#F2F4F9;max-width:24ch}
+.cta .lede{color:#C9C4BA}
+.cta .fld>span{color:#D6D2CA}
+.cta .fld em{color:#A9A398}
+.cta .fld input{background:#1F1E1C;border-color:#4A4843;color:#F2F4F9}
+.cta .chip span{background:#1F1E1C;border-color:#4A4843;color:#F2F4F9}
+.cta .chip input:checked+span{background:color-mix(in srgb,#FF5B1F 22%,#1F1E1C);border-color:#FF7A45;box-shadow:inset 0 0 0 1px #FF7A45}
+.cta .fine{color:#A9A398}
+.cta .btn-ghost{background:transparent;color:#F2F4F9;border-color:rgba(242,244,249,.35)}
+.cta .btn-primary{background:#FF5B1F;color:#fff}
+.cta .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.cta-grid{display:grid;gap:24px}
+@media (min-width:900px){.cta-grid{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:start}}
+.gets{display:grid;gap:8px;font-size:15px;color:#D6D2CA;margin:4px 0 0;padding:0;list-style:none}
+.gets li::before{content:"◆ ";color:#FF7A45;font-size:10px;vertical-align:2px}
+.lead{display:grid;gap:16px;min-width:0}
+.ferr{color:#FF9B73;font-size:14.5px;min-height:1em}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.done{display:grid;gap:10px;background:#1F1E1C;border:1px solid #4A4843;border-radius:18px;padding:22px}
+.done .tick{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#14A06A;color:#fff;font-weight:800;font-size:20px}
+.done h3{color:#F2F4F9;font-size:22px}
+.done p{color:#C9C4BA}
+
+/* FAQ */
+.faq-sec{display:grid;gap:18px;margin-bottom:56px;max-width:820px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:56px;padding:12px 0;font:600 18px/1.3 var(--body)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;font-size:24px;line-height:1;color:var(--accent-text)}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--ink-2);padding:0 0 18px;max-width:68ch}
+
+footer{padding-block:24px 96px;color:var(--ink-3);font-size:13.5px;text-align:center;border-top:1px solid var(--line)}
+footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44px;padding:0 6px}
+@media (min-width:960px){footer{padding-bottom:40px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/slabline-mark.png" alt="">Slabline</a>
+  <a class="back" href="index.html">← Back to site</a>
+</div></header>
+
+<main class="wrap">
+  <section class="intro">
+    <p class="eyebrow">Free concrete cost calculator · 2026</p>
+    <h1>Check your price per square foot. <span class="hl">Build a ballpark in 30 seconds.</span></h1>
+    <p class="lede">For driveways, patios, sidewalks and garage floors. Contractors: type your own prices into the assumptions and see if your number holds up. Homeowners: get a realistic range before the quotes come in.</p>
+    <div class="meta"><span>Yardage with waste</span><span>Material, labor, extras</span><span>Your prices, live</span></div>
+  </section>
+
+  <form class="calc" id="calc" novalidate onsubmit="return false">
+    <!-- INPUTS -->
+    <section class="card inputs" aria-labelledby="in-h">
+      <div class="card-h"><h2 id="in-h" style="font-size:22px">The job</h2><span class="step">Step 1</span></div>
+
+      <fieldset>
+        <legend>Project type</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="type" value="driveway" checked><span>Driveway</span></label>
+          <label class="chip"><input type="radio" name="type" value="patio"><span>Patio</span></label>
+          <label class="chip"><input type="radio" name="type" value="sidewalk"><span>Sidewalk</span></label>
+          <label class="chip"><input type="radio" name="type" value="garage"><span>Garage floor</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Size</legend>
+        <div class="chips two" style="margin-bottom:12px">
+          <label class="chip"><input type="radio" name="sizeMode" value="dims" checked><span>Length × width</span></label>
+          <label class="chip"><input type="radio" name="sizeMode" value="area"><span>Total sq ft</span></label>
+        </div>
+        <div class="dims" id="dimsBox">
+          <label class="fld"><span>Length</span><div class="aff"><input id="len" name="len" type="number" inputmode="decimal" min="0" step="0.5" value="30"><em>ft</em></div></label>
+          <span class="x" aria-hidden="true">×</span>
+          <label class="fld"><span>Width</span><div class="aff"><input id="wid" name="wid" type="number" inputmode="decimal" min="0" step="0.5" value="20"><em>ft</em></div></label>
+        </div>
+        <div id="areaBox" hidden>
+          <label class="fld"><span>Total area</span><div class="aff"><input id="area" name="area" type="number" inputmode="decimal" min="0" step="1" value="600"><em>sq ft</em></div></label>
+          <p class="hint" style="margin-top:6px">Odd shape? Add up the rectangles and enter the total.</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Thickness</legend>
+        <div class="chips three">
+          <label class="chip"><input type="radio" name="thick" value="4" checked><span>4 in<small>Cars, patios</small></span></label>
+          <label class="chip"><input type="radio" name="thick" value="5"><span>5 in<small>Trucks</small></span></label>
+          <label class="chip"><input type="radio" name="thick" value="6"><span>6 in<small>Heavy / RV</small></span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Finish</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="finish" value="broom" checked><span>Broom</span></label>
+          <label class="chip"><input type="radio" name="finish" value="expo"><span>Exposed aggregate</span></label>
+          <label class="chip"><input type="radio" name="finish" value="stamp"><span>Stamped</span></label>
+          <label class="chip"><input type="radio" name="finish" value="stampc"><span>Stamped + colored</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Reinforcement</legend>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="reinf" value="none"><span>None<small>Fiber mix only</small></span></label>
+          <label class="chip"><input type="radio" name="reinf" value="mesh"><span>Wire mesh</span></label>
+          <label class="chip"><input type="radio" name="reinf" value="rebar3" checked><span>#3 rebar<small>18" on center</small></span></label>
+          <label class="chip"><input type="radio" name="reinf" value="rebar4"><span>#4 rebar<small>18" on center</small></span></label>
+        </div>
+      </fieldset>
+
+      <div class="fgrid stack">
+        <fieldset>
+          <legend>Remove old concrete?</legend>
+          <div class="chips two">
+            <label class="chip"><input type="radio" name="tear" value="no" checked><span>No</span></label>
+            <label class="chip"><input type="radio" name="tear" value="yes"><span>Yes</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>4" gravel base?</legend>
+          <div class="chips two">
+            <label class="chip"><input type="radio" name="base" value="yes" checked><span>Yes</span></label>
+            <label class="chip"><input type="radio" name="base" value="no"><span>No</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <fieldset>
+        <legend>Truck access</legend>
+        <div class="chips two">
+          <label class="chip"><input type="radio" name="access" value="easy" checked><span>Easy<small>Chute reaches the pour</small></span></label>
+          <label class="chip"><input type="radio" name="access" value="limited"><span>Limited<small>Pump or buggies</small></span></label>
+        </div>
+      </fieldset>
+
+      <div class="fgrid stack">
+        <label class="fld"><span>ZIP code <em>(optional)</em></span><input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 75201"></label>
+        <label class="fld"><span>Region price level</span>
+          <select id="region" name="region">
+            <option value="1.00" data-k="us" selected>US average (×1.00)</option>
+            <option value="1.00" data-k="own">My prices are already local (×1.00)</option>
+            <option value="1.15" data-k="ne">Northeast / NY metro (×1.15)</option>
+            <option value="1.05" data-k="ma">Mid-Atlantic / Carolinas (×1.05)</option>
+            <option value="0.92" data-k="se">Southeast (×0.92)</option>
+            <option value="0.97" data-k="mw">Midwest (×0.97)</option>
+            <option value="0.92" data-k="sc">Texas / South Central (×0.92)</option>
+            <option value="1.03" data-k="mt">Mountain West (×1.03)</option>
+            <option value="1.20" data-k="pa">West Coast / Pacific (×1.20)</option>
+          </select>
+        </label>
+      </div>
+      <p class="hint" id="regionHint">A rough multiplier on every price. If you typed your own prices below, pick "My prices are already local".</p>
+    </section>
+
+    <!-- RESULT -->
+    <section class="card result" id="result" aria-labelledby="res-h">
+      <div class="card-h"><h2 id="res-h" style="font-size:22px">Your ballpark</h2><span class="step">Live</span></div>
+      <div id="resBody">
+        <div class="total" aria-live="polite" aria-atomic="true">
+          <small>Estimated total</small>
+          <b id="rTotal">–</b>
+          <span class="psf" id="rPsf"></span>
+        </div>
+      </div>
+      <p class="homeowner" id="rHome"></p>
+      <div class="yards">
+        <span class="step" style="color:var(--ink-2)">Concrete to order</span>
+        <strong id="rYd">–</strong>
+        <code id="rFormula"></code>
+      </div>
+      <p class="note" id="rShort" hidden></p>
+      <table class="bd" aria-label="Cost breakdown"><tbody id="rTable"></tbody></table>
+      <p class="fine">Planning estimate, not a quote. Range is −<span id="rLo">10</span>% / +<span id="rHi">15</span>% around the line items. Permits, sealer, drainage, grading and steps aren't included. A real price needs a site visit.</p>
+      <div class="mini-cta">
+        <p>Want this as a branded quote your customer can approve?</p>
+        <div class="row">
+          <a class="btn btn-primary" href="#quote">Get a free sample quote</a>
+          <a class="btn btn-ghost" href="index.html">See Slabline</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASSUMPTIONS -->
+    <section class="card assume" aria-labelledby="as-h">
+      <div class="card-h"><h2 id="as-h" style="font-size:22px">Assumptions</h2><span class="step">Step 2 · optional</span></div>
+      <p class="hint" style="font-size:15px">These are <b style="color:var(--ink)">defaults, change to your prices</b>. They're rough 2026 planning numbers, not market data. Every change updates the total live and is remembered on this device.</p>
+      <div class="agrid" id="agrid"></div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <button type="button" class="linkbtn" id="reset">Reset to defaults</button>
+        <span class="saved" id="saved" aria-live="polite"></span>
+      </div>
+    </section>
+  </form>
+
+  <!-- LEAD CTA -->
+  <section class="cta" id="quote" aria-labelledby="q-h">
+    <div class="cta-grid">
+      <div style="display:grid;gap:14px">
+        <p class="eyebrow" style="color:#FF9B73">Free sample quote</p>
+        <h2 id="q-h">Want this as a branded quote your customer can approve?</h2>
+        <p class="lede">We'll turn the job above into a real estimate under your company name: your logo, line items, options and an Approve button. Sent within 24 hours.</p>
+        <ul class="gets">
+          <li>Built from the numbers you entered</li>
+          <li>Good / better / best finish options</li>
+          <li>Yours to keep, no account needed</li>
+        </ul>
+      </div>
+      <form class="lead" id="lead" novalidate>
+        <fieldset>
+          <legend style="color:#F2F4F9">I'm a</legend>
+          <div class="chips two">
+            <label class="chip"><input type="radio" name="role" value="Contractor" checked><span>Contractor</span></label>
+            <label class="chip"><input type="radio" name="role" value="Homeowner"><span>Homeowner</span></label>
+          </div>
+        </fieldset>
+        <div class="fgrid stack">
+          <label class="fld"><span>Your name <i>*</i></span><input name="name" autocomplete="name" required></label>
+          <label class="fld"><span>Company name <em id="coNote">(contractors)</em></span><input name="company" autocomplete="organization"></label>
+          <label class="fld"><span>Email <i>*</i></span><input name="email" type="email" autocomplete="email" required></label>
+          <label class="fld"><span>Mobile <i>*</i></span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[0-9+\(\)\-\s.]{7,}"></label>
+        </div>
+        <input type="text" name="fax_line" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="ferr" id="ferr" role="alert"></p>
+        <div class="row">
+          <button class="btn btn-primary" type="submit" id="send">Get my free sample quote</button>
+          <a class="btn btn-ghost" href="index.html">See Slabline</a>
+        </div>
+        <p class="fine">We use this only to send your sample and follow up once. No spam. Your calculator inputs are sent with it so the sample matches the job.</p>
+      </form>
+      <div class="done" id="done" hidden tabindex="-1">
+        <div class="tick" aria-hidden="true">✓</div>
+        <h3>Your sample quote is on the way.</h3>
+        <p>Check your inbox within 24 hours. If you have a logo, reply to our email with it attached and the sample will look exactly like yours.</p>
+        <div class="row"><a class="btn btn-ghost" href="index.html">See Slabline</a><a class="btn btn-ghost" href="scorecard.html">Take the quote scorecard</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-sec" aria-labelledby="faq-h">
+    <h2 id="faq-h">Concrete cost questions</h2>
+    <div class="faq">
+      <details><summary>How much does a concrete driveway cost per square foot?</summary><p>It depends on thickness, finish, base, reinforcement, tear-out and local prices. With this calculator's default prices, a plain 4-inch broom-finish driveway on a gravel base with rebar lands around $8 to $10 per square foot, and stamped and colored concrete around $15 to $19. Your local prices may be higher or lower, so treat it as a planning number and get quotes.</p></details>
+      <details><summary>How many yards of concrete do I need for a 20x30 driveway?</summary><p>At 4 inches thick: 600 sq ft × (4 ÷ 12) ft = 200 cubic feet, ÷ 27 = 7.41 cubic yards. Add 10% for waste and uneven grade and you get about 8.15 cubic yards. At 5 inches it is about 10.19 yards and at 6 inches about 12.22 yards.</p></details>
+      <details><summary>Should a driveway be 4, 5 or 6 inches thick?</summary><p>Four inches is common for patios, sidewalks and driveways that only see passenger cars. Many contractors pour 5 to 6 inches for driveways that carry trucks, RVs or delivery vehicles, or thicken the edges and apron. Check local code and your contractor's recommendation for your soil and use.</p></details>
+      <details><summary>What is a short-load fee?</summary><p>Many ready-mix suppliers charge an extra fee when a truck delivers less than a minimum amount, often somewhere around 4 to 5 cubic yards. Small patios and sidewalks often trigger it. The amount and the minimum vary by supplier, so ask yours. This calculator adds a default fee under 4 yards, and you can change it.</p></details>
+      <details><summary>Is this calculator a quote?</summary><p>No. It is a planning estimate built from default prices that you can change. A real quote needs a site visit to check grade, soil, drainage, access and local permit requirements.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Slabline · Quoting systems for concrete contractors · <a href="index.html">Home</a><a href="scorecard.html">Quote scorecard</a></div></footer>
+
+<div class="bar" id="bar" aria-hidden="true">
+  <div><b id="barTotal">–</b><small id="barPsf"></small></div>
+  <a class="btn btn-primary" href="#result" tabindex="-1">See breakdown</a>
+</div>
+
+<script src="config.js"></script>
+<script src="lead.js"></script>
+<script>
+(function(){
+  // ---- Default unit prices (rough 2026 US planning numbers; users overwrite them) ----
+  const DEF = {
+    mix:175,      // $/cu yd ready-mix delivered
+    waste:10,     // % added to yardage
+    base:1.25,    // $/sq ft, 4" compacted gravel, installed
+    mesh:0.40,    // $/sq ft wire mesh
+    rebar3:1.00,  // $/sq ft #3 @ 18" OC, installed
+    rebar4:1.40,  // $/sq ft #4 @ 18" OC, installed
+    labor:4.00,   // $/sq ft form, place, broom finish at 4"
+    thick:0.35,   // $/sq ft labor per inch over 4"
+    walk:1.00,    // $/sq ft sidewalk adder (more forming per sq ft)
+    garage:0.50,  // $/sq ft garage floor adder (vapor barrier, trowel)
+    expo:3.00,    // $/sq ft exposed aggregate upgrade
+    stamp:6.00,   // $/sq ft stamped upgrade
+    stampc:8.00,  // $/sq ft stamped + color upgrade
+    tear:2.50,    // $/sq ft remove & haul old concrete
+    access:750,   // $ flat, pump or buggies for limited access
+    short:150,    // $ short-load fee
+    shortMin:4,   // yd threshold for short-load fee
+    lo:10, hi:15  // % range around line items
+  };
+  const FIELDS = [
+    ['Concrete'],
+    ['mix','Ready-mix concrete','$','/ cu yd'],
+    ['waste','Waste allowance','','%'],
+    ['short','Short-load fee','$','flat'],
+    ['shortMin','Short-load applies under','','cu yd'],
+    ['Base &amp; steel'],
+    ['base','4" gravel base, installed','$','/ sq ft'],
+    ['mesh','Wire mesh','$','/ sq ft'],
+    ['rebar3','#3 rebar 18" OC','$','/ sq ft'],
+    ['rebar4','#4 rebar 18" OC','$','/ sq ft'],
+    ['Labor'],
+    ['labor','Form, place, broom finish (4")','$','/ sq ft'],
+    ['thick','Extra labor per inch over 4"','$','/ sq ft'],
+    ['walk','Sidewalk forming adder','$','/ sq ft'],
+    ['garage','Garage floor adder','$','/ sq ft'],
+    ['Finish upgrades'],
+    ['expo','Exposed aggregate','$','/ sq ft'],
+    ['stamp','Stamped','$','/ sq ft'],
+    ['stampc','Stamped + colored','$','/ sq ft'],
+    ['Extras'],
+    ['tear','Remove &amp; haul old concrete','$','/ sq ft'],
+    ['access','Limited access (pump / buggies)','$','flat'],
+    ['lo','Range below estimate','','%'],
+    ['hi','Range above estimate','','%']
+  ];
+  const KEY='slabline-calc-prices-v1';
+  let P=Object.assign({},DEF);
+  try{ const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&typeof s==='object') Object.keys(DEF).forEach(k=>{ if(typeof s[k]==='number'&&isFinite(s[k])) P[k]=s[k]; }); }catch(e){}
+
+  const $=id=>document.getElementById(id);
+  const form=$('calc'), agrid=$('agrid');
+  const shown=f=>f[3]==='/ sq ft'?(+P[f[0]]).toFixed(2):P[f[0]];
+  agrid.innerHTML=FIELDS.map(f=>f.length===1?`<div class="agroup">${f[0]}</div>`:
+    `<label class="fld"><span>${f[1]}</span><div class="aff">${f[2]?`<b>${f[2]}</b>`:''}<input type="number" inputmode="decimal" min="0" step="any" data-p="${f[0]}" value="${shown(f)}" aria-describedby="as-h"><em>${f[3]}</em></div></label>`).join('');
+
+  const val=n=>{ const x=parseFloat(n); return isFinite(x)&&x>=0?x:0; };
+  const radio=name=>{ const el=form.querySelector(`input[name="${name}"]:checked`); return el?el.value:''; };
+  const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+  const r50=n=>Math.round(n/50)*50;
+  const LABEL={type:{driveway:'Driveway',patio:'Patio',sidewalk:'Sidewalk',garage:'Garage floor'},
+    finish:{broom:'Broom finish',expo:'Exposed aggregate',stamp:'Stamped',stampc:'Stamped + colored'},
+    reinf:{none:'No steel',mesh:'Wire mesh',rebar3:'#3 rebar 18" OC',rebar4:'#4 rebar 18" OC'}};
+
+  let last=null;
+  function calc(){
+    const mode=radio('sizeMode');
+    $('dimsBox').hidden=mode!=='dims'; $('areaBox').hidden=mode!=='area';
+    const L=val($('len').value), W=val($('wid').value);
+    const sqft=mode==='dims'?L*W:val($('area').value);
+    const t=+radio('thick'), type=radio('type'), fin=radio('finish'), reinf=radio('reinf');
+    const tear=radio('tear')==='yes', base=radio('base')==='yes', limited=radio('access')==='limited';
+    const regSel=$('region'), m=val(regSel.value)||1;
+    const ydRaw=sqft*(t/12)/27, yd=ydRaw*(1+P.waste/100);
+    const shortApplies=sqft>0&&yd<P.shortMin;
+
+    const mat=[['Concrete',`${yd.toFixed(2)} yd × ${money(P.mix)}`,yd*P.mix]];
+    if(base) mat.push(['Gravel base, 4"',`${fmt(sqft)} sq ft × $${P.base.toFixed(2)}`,sqft*P.base]);
+    if(reinf!=='none') mat.push([LABEL.reinf[reinf],`${fmt(sqft)} sq ft × $${P[reinf].toFixed(2)}`,sqft*P[reinf]]);
+    const lab=[['Form, place, finish',`${fmt(sqft)} sq ft × $${P.labor.toFixed(2)}`,sqft*P.labor]];
+    if(t>4) lab.push([`Extra thickness (${t}")`,`${t-4} in × $${P.thick.toFixed(2)} / sq ft`,sqft*P.thick*(t-4)]);
+    if(type==='sidewalk') lab.push(['Sidewalk forming','',sqft*P.walk]);
+    if(type==='garage') lab.push(['Garage floor prep','',sqft*P.garage]);
+    if(fin!=='broom') lab.push([LABEL.finish[fin],'labor + materials',sqft*P[fin]]);
+    const ext=[];
+    if(tear) ext.push(['Remove &amp; haul old concrete',`${fmt(sqft)} sq ft × $${P.tear.toFixed(2)}`,sqft*P.tear]);
+    if(limited) ext.push(['Limited access','pump or buggies',P.access]);
+    if(shortApplies) ext.push(['Short-load fee',`under ${P.shortMin} yd`,P.short]);
+
+    const sum=a=>a.reduce((s,r)=>s+r[2],0)*m;
+    const tm=sum(mat), tl=sum(lab), te=sum(ext), mid=tm+tl+te;
+    const lo=r50(mid*(1-P.lo/100)), hi=r50(mid*(1+P.hi/100));
+
+    $('rLo').textContent=P.lo; $('rHi').textContent=P.hi;
+    if(sqft<=0){
+      $('rTotal').textContent='Enter a size'; $('rPsf').textContent=''; $('rHome').textContent='Add the length and width (or total square feet) to see a price.';
+      $('rYd').textContent='–'; $('rFormula').textContent=''; $('rTable').innerHTML=''; $('rShort').hidden=true;
+      $('barTotal').textContent='–'; $('barPsf').textContent=''; last=null; return;
+    }
+    const psfLo=(lo/sqft).toFixed(2), psfHi=(hi/sqft).toFixed(2);
+    $('rTotal').textContent=`${money(lo)} – ${money(hi)}`;
+    $('rPsf').textContent=`$${psfLo} – $${psfHi} per sq ft · ${fmt(sqft)} sq ft`;
+    $('rHome').innerHTML=`<b>In plain terms:</b> a ${fmt(sqft)} sq ft ${LABEL.type[type].toLowerCase()}, ${t}" thick with a ${LABEL.finish[fin].toLowerCase().replace(' finish','')} finish, would land somewhere around <b>${money(lo)} to ${money(hi)}</b> installed at these prices${m!==1?` (${regSel.options[regSel.selectedIndex].text.replace(/ \(.*/,'')} pricing)`:''}.`;
+    $('rYd').textContent=`${yd.toFixed(2)} cu yd`;
+    $('rFormula').textContent=`${fmt(sqft)} sq ft × (${t} ÷ 12) ft ÷ 27 = ${ydRaw.toFixed(2)} yd × ${(1+P.waste/100).toFixed(2)} waste = ${yd.toFixed(2)} yd`;
+    const sn=$('rShort');
+    if(shortApplies){ sn.hidden=false; sn.innerHTML=`<b>Short load:</b> under ${P.shortMin} yd, many suppliers add a small-load fee. We've added ${money(P.short*m)}. Check your supplier's minimum.`; }
+    else if(yd<P.shortMin+1){ sn.hidden=false; sn.innerHTML=`<b>Close to a short load:</b> just over ${P.shortMin} yd. If your supplier's minimum is higher, add their small-load fee.`; }
+    else sn.hidden=true;
+    const rows=(title,arr,tot)=>arr.length?`<tr class="grp"><th scope="row">${title}</th><td>${money(tot)}</td></tr>`+arr.map(r=>`<tr><th scope="row">${r[0]}${r[1]?`<small>${r[1]}</small>`:''}</th><td>${money(r[2]*m)}</td></tr>`).join(''):'';
+    $('rTable').innerHTML=rows('Material',mat,tm)+rows('Labor',lab,tl)+rows('Extras',ext,te)+
+      (m!==1?`<tr><th scope="row" colspan="2" style="color:var(--ink-3);font-size:13px">Region multiplier ×${m.toFixed(2)} applied to every line</th></tr>`:'')+
+      `<tr class="sum"><th scope="row">Line-item total</th><td>${money(mid)}</td></tr>`;
+    $('barTotal').textContent=`${money(lo)} – ${money(hi)}`; $('barPsf').textContent=`$${psfLo}–$${psfHi} / sq ft · ${yd.toFixed(2)} yd`;
+    last={sqft,L,W,mode,t,type,fin,reinf,tear,base,limited,yd,lo,hi,mid,psfLo,psfHi,region:regSel.options[regSel.selectedIndex].text,zip:$('zip').value.trim()};
+  }
+  function fmt(n){ return (Math.round(n*100)/100).toLocaleString('en-US'); }
+  window.__calc=()=>last;
+
+  // ZIP -> region (first digit of ZIP; rough)
+  const ZIP={0:'ne',1:'ne',2:'ma',3:'se',4:'mw',5:'mw',6:'mw',7:'sc',8:'mt',9:'pa'};
+  $('zip').addEventListener('input',e=>{
+    const z=e.target.value.replace(/\D/g,'').slice(0,5); if(z!==e.target.value) e.target.value=z;
+    if(z.length>=1){ const k=ZIP[z[0]]; const o=[...$('region').options].find(x=>x.dataset.k===k); if(o&&$('region').selectedOptions[0].dataset.k!=='own') o.selected=true; }
+    calc();
+  });
+
+  let saveT;
+  form.addEventListener('input',e=>{
+    const k=e.target.dataset&&e.target.dataset.p;
+    if(k){ P[k]=val(e.target.value); clearTimeout(saveT); saveT=setTimeout(()=>{ try{ localStorage.setItem(KEY,JSON.stringify(P)); $('saved').textContent='Your prices are saved on this device.'; }catch(er){} },400); }
+    calc();
+  });
+  form.addEventListener('change',calc);
+  $('reset').addEventListener('click',()=>{
+    P=Object.assign({},DEF); agrid.querySelectorAll('[data-p]').forEach(i=>i.value=shown(FIELDS.find(f=>f[0]===i.dataset.p)));
+    try{ localStorage.removeItem(KEY); }catch(er){} $('saved').textContent='Defaults restored.'; calc();
+  });
+  calc();
+
+  // sticky mobile total while the result card is off screen
+  const bar=$('bar');
+  if('IntersectionObserver' in window){
+    const vis={}; const watch=['rTotal','rTable','quote'];
+    const upd=()=>bar.classList.toggle('show',watch.every(id=>!vis[id])&&scrollY>200&&!!last);
+    const io=new IntersectionObserver(es=>{es.forEach(e=>vis[e.target.id]=e.isIntersecting);upd();});
+    watch.forEach(id=>io.observe($(id)));
+    addEventListener('scroll',upd,{passive:true});
+  }
+
+  // role toggles the company label
+  const lead=$('lead');
+  lead.addEventListener('change',()=>{ $('coNote').textContent=lead.querySelector('[name=role]:checked').value==='Homeowner'?'(optional)':'(contractors)'; });
+
+  // ---- Lead capture: same FormSubmit path as the scorecard / index sample form (lead.js) ----
+  lead.addEventListener('submit',e=>{
+    e.preventDefault();
+    const err=$('ferr');
+    if(!lead.checkValidity()){ err.textContent='Please fill in your name, email and mobile.'; const bad=lead.querySelector(':invalid'); bad&&bad.focus(); return; }
+    err.textContent='';
+    const d=readLead(lead); if(!d) return;
+    delete d.website;
+    const c=last||{};
+    const job=c.sqft?{
+      'Request':'Free branded sample quote (calculator)',
+      'Role':d.role,
+      'Project':LABEL.type[c.type],
+      'Size':(c.mode==='dims'?`${c.L} × ${c.W} ft = `:'')+`${fmt(c.sqft)} sq ft`,
+      'Thickness':c.t+' in',
+      'Finish':LABEL.finish[c.fin],
+      'Reinforcement':LABEL.reinf[c.reinf],
+      'Remove old concrete':c.tear?'Yes':'No',
+      '4in gravel base':c.base?'Yes':'No',
+      'Access':c.limited?'Limited':'Easy',
+      'ZIP':c.zip,
+      'Region':c.region,
+      'Cubic yards (incl. waste)':c.yd.toFixed(2),
+      'Estimate range':`${money(c.lo)} – ${money(c.hi)}`,
+      'Per sq ft':`$${c.psfLo} – $${c.psfHi}`,
+      'Prices used':Object.keys(P).map(k=>k+'='+P[k]).join(', ')
+    }:{'Request':'Free branded sample quote (calculator)','Role':d.role};
+    delete d.role;
+    const btn=$('send'); btn.disabled=true; btn.textContent='Sending…';
+    sendVisitorEmail({type:'sample', name:d.name, company:d.company, email:d.email});
+    sendLead(Object.assign({},d,job),'Calculator lead: '+(d.company||d.name)+(c.sqft?` · ${fmt(c.sqft)} sq ft ${LABEL.type[c.type].toLowerCase()}`:''))
+      .then(()=>{ lead.hidden=true; const dn=$('done'); dn.hidden=false; dn.focus({preventScroll:true}); dn.scrollIntoView({behavior:'smooth',block:'center'}); })
+      .catch(er=>{ console.warn('Lead send failed:',er.message); btn.disabled=false; btn.textContent='Get my free sample quote'; err.textContent='Your details didn\'t send. Check your connection and try again.'; });
+  });
+})();
+</script>
+</body>
+</html>
