@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thanks.html
+
+Sitemap: https://slabline.glintvex.com/sitemap.xml
