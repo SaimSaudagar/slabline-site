@@ -258,7 +258,7 @@ footer{padding-block:24px 40px;color:var(--ink-3);font-size:13.5px;text-align:ce
     const lost=A.quotes*(1-A.close/100);
     const speedGap=(25-Q[0].o[A.speed][1])/25, followGap=(20-Q[4].o[A.follow][1])/20;
     const jobs=lost*(0.10*speedGap+0.10*followGap), monthly=jobs*A.value;
-    const grade=score>=80?'Fast lane':score>=55?'Leaking a few jobs':'Leaking jobs every month';
+    const grade=score>=80?'In good shape':score>=55?'A few wasted drives':'Wasting drives every month';
     return {score,top,lost,jobs,monthly,grade};
   }
 
@@ -273,7 +273,7 @@ footer{padding-block:24px 40px;color:var(--ink-3);font-size:13.5px;text-align:ce
     const speedGap=(25-Q[0].o[A.speed][1])/25, followGap=(20-Q[4].o[A.follow][1])/20;
     const recoverRate=0.10*speedGap+0.10*followGap; // up to 20% of non-closing quotes
     const jobs=lost*recoverRate, monthly=jobs*A.value;
-    const grade=score>=80?['Fast lane','var(--good)']:score>=55?['Leaking a few jobs','var(--accent-2)']:['Leaking jobs every month','var(--bad)'];
+    const grade=score>=80?['In good shape','var(--good)']:score>=55?['A few wasted drives','var(--accent-2)']:['Wasting drives every month','var(--bad)'];
     stage.innerHTML=`<div class="res">
       <div class="res-top">
         <div class="gauge"><svg viewBox="0 0 200 200"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="var(--accent)"/><stop offset="1" stop-color="var(--accent-2)"/></linearGradient></defs><circle class="t" cx="100" cy="100" r="92"/><circle class="f" id="gf" cx="100" cy="100" r="92"/></svg><div class="c"><b id="sc">0</b><span>out of 100</span></div></div>
