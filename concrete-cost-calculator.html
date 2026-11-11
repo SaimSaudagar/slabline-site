@@ -363,9 +363,9 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
       <table class="bd" aria-label="Cost breakdown"><tbody id="rTable"></tbody></table>
       <p class="fine">Planning estimate, not a quote. Range is −<span id="rLo">10</span>% / +<span id="rHi">15</span>% around the line items. Permits, sealer, drainage, grading and steps aren't included. A real price needs a site visit.</p>
       <div class="mini-cta">
-        <p>Want this as a branded quote your customer can approve?</p>
+        <p>Got your number? Get the deposit in before you order concrete.</p>
         <div class="row">
-          <a class="btn btn-primary" href="#quote">Get a free sample quote</a>
+          <a class="btn btn-primary" href="#quote">Get the free deposit + change-order template</a>
           <a class="btn btn-ghost" href="index.html">See Slabline</a>
         </div>
       </div>
@@ -409,13 +409,13 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   <section class="cta" id="quote" aria-labelledby="q-h">
     <div class="cta-grid">
       <div style="display:grid;gap:14px">
-        <p class="eyebrow" style="color:#FF9B73">Free sample quote</p>
-        <h2 id="q-h">Want this as a branded quote your customer can approve?</h2>
-        <p class="lede">We'll turn the job above into a real estimate under your company name: your logo, line items, options and an Approve button. Sent within 24 hours.</p>
+        <p class="eyebrow" style="color:#FF9B73">Free template for contractors</p>
+        <h2 id="q-h">Got the price. Now make sure you get paid.</h2>
+        <p class="lede">A 3-page PDF made for concrete jobs. Set the deposit and payment schedule before any concrete is ordered, and get every extra signed before you do it.</p>
         <ul class="gets">
-          <li>Built from the numbers you entered</li>
-          <li>Good / better / best finish options</li>
-          <li>Yours to keep, no account needed</li>
+          <li>Deposit and payment schedule tied to milestones</li>
+          <li>Change-order sign-off for extras</li>
+          <li>Free PDF to print or send, no account needed</li>
         </ul>
       </div>
       <form class="lead" id="lead" novalidate>
@@ -435,16 +435,16 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
         <input type="text" name="fax_line" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="ferr" id="ferr" role="alert"></p>
         <div class="row">
-          <button class="btn btn-primary" type="submit" id="send">Get my free sample quote</button>
+          <button class="btn btn-primary" type="submit" id="send">Get the template</button>
           <a class="btn btn-ghost" href="index.html">See Slabline</a>
         </div>
-        <p class="fine">We use this only to send your sample and follow up once. No spam. Your calculator inputs are sent with it so the sample matches the job.</p>
+        <p class="fine">We use this only to send you the template and follow up once. No spam. Your calculator inputs are sent with it. Template only, not legal advice.</p>
       </form>
       <div class="done" id="done" hidden tabindex="-1">
         <div class="tick" aria-hidden="true">✓</div>
-        <h3>Your sample quote is on the way.</h3>
-        <p>Check your inbox within 24 hours. If you have a logo, reply to our email with it attached and the sample will look exactly like yours.</p>
-        <div class="row"><a class="btn btn-ghost" href="index.html">See Slabline</a><a class="btn btn-ghost" href="scorecard.html">Take the quote scorecard</a></div>
+        <h3>Here's your template.</h3>
+        <p>Print it or send it as a PDF. Deposit and contract rules vary by state, so check yours before you use it.</p>
+        <div class="row"><a class="btn btn-primary" href="assets/concrete-deposit-change-order-template.pdf" download>Download the PDF</a><a class="btn btn-ghost" href="scorecard.html">Take the wasted-drive scorecard</a></div>
       </div>
     </div>
   </section>
@@ -462,7 +462,7 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
   </section>
 </main>
 
-<footer><div class="wrap">Slabline · Quoting systems for concrete contractors · <a href="index.html">Home</a><a href="scorecard.html">Quote scorecard</a></div></footer>
+<footer><div class="wrap">Slabline · Screen before you drive, get paid, protect yourself · <a href="index.html">Home</a><a href="scorecard.html">Wasted-drive scorecard</a></div></footer>
 
 <div class="bar" id="bar" aria-hidden="true">
   <div><b id="barTotal">–</b><small id="barPsf"></small></div>
@@ -663,7 +663,7 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
     delete d.website;
     const c=last||{};
     const job=c.sqft?{
-      'Request':'Free branded sample quote (calculator)',
+      'Request':'Free deposit + change-order template (calculator)',
       'Role':d.role,
       'Project':LABEL.type[c.type],
       'Size':(c.mode==='dims'?`${c.L} × ${c.W} ft = `:'')+`${fmt(c.sqft)} sq ft`,
@@ -679,13 +679,13 @@ footer a{color:var(--ink-2);display:inline-flex;align-items:center;min-height:44
       'Estimate range':`${money(c.lo)} – ${money(c.hi)}`,
       'Per sq ft':`$${c.psfLo} – $${c.psfHi}`,
       'Prices used':Object.keys(P).map(k=>k+'='+P[k]).join(', ')
-    }:{'Request':'Free branded sample quote (calculator)','Role':d.role};
+    }:{'Request':'Free deposit + change-order template (calculator)','Role':d.role};
     delete d.role;
     const btn=$('send'); btn.disabled=true; btn.textContent='Sending…';
-    sendVisitorEmail({type:'sample', name:d.name, company:d.company, email:d.email});
+    // No visitor email here: the platform's only matching template ('sample') promises a sample quote.
     sendLead(Object.assign({},d,job),'Calculator lead: '+(d.company||d.name)+(c.sqft?` · ${fmt(c.sqft)} sq ft ${LABEL.type[c.type].toLowerCase()}`:''))
       .then(()=>{ lead.hidden=true; const dn=$('done'); dn.hidden=false; dn.focus({preventScroll:true}); dn.scrollIntoView({behavior:'smooth',block:'center'}); })
-      .catch(er=>{ console.warn('Lead send failed:',er.message); btn.disabled=false; btn.textContent='Get my free sample quote'; err.textContent='Your details didn\'t send. Check your connection and try again.'; });
+      .catch(er=>{ console.warn('Lead send failed:',er.message); btn.disabled=false; btn.textContent='Get the template'; err.textContent='Your details didn\'t send. Check your connection and try again.'; });
   });
 })();
 </script>
